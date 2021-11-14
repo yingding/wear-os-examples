@@ -1,0 +1,10 @@
+# Default ignored files
+
+.DS_Store
+.google/
+.idea/
+screenshots/
+
+build/
+
+
