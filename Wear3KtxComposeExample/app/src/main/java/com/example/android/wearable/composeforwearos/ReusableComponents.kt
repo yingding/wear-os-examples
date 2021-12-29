@@ -58,7 +58,22 @@ fun ButtonExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        // Button
+        Button(
+            modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+            onClick = {},
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Phone,
+                contentDescription = "triggers phone action",
+                modifier = iconModifier
+            )
+        }
+    }
 }
 
 // TODO: Create a Text Composable

@@ -97,7 +97,7 @@ fun WearApp() {
             ) {
 
                 // TODO: Remove item; for beginning only.
-                item { StartOnlyTextComposables() }
+                // item { StartOnlyTextComposables() }
 
                 /* ******************* Part 1: Simple composables ******************* */
                 item { ButtonExample(contentModifier, iconModifier) }
