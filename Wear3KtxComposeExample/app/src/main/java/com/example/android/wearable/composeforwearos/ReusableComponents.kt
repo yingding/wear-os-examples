@@ -48,9 +48,22 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /* Contains individual Wear OS demo composables for the code lab. */
+
+@Composable
+@OptIn(ExperimentalWearMaterialApi::class)
+fun TimeTextExample(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.Center,
+    ) { TimeText() }
+}
 
 // TODO: Create a Button Composable (with a Row to center)
 @Composable
@@ -176,6 +189,22 @@ fun StartOnlyTextComposables() {
 
 /* Previews of Composables. */
 // Note: Preview in Android Studio doesn't support the round view yet (coming soon).
+
+@Preview(
+    group = "TimeText",
+    widthDp = WEAR_PREVIEW_ELEMENT_WIDTH_DP,
+    heightDp = WEAR_PREVIEW_ELEMENT_HEIGHT_DP,
+    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    uiMode = WEAR_PREVIEW_UI_MODE,
+    backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
+    showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
+)
+@Composable
+fun TimeTextExamplePreview() {
+    WearAppTheme {
+        TimeTextExample()
+    }
+}
 
 // Hello, world starter text preview
 @Preview(

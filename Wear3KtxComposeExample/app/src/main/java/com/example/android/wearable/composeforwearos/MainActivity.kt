@@ -130,6 +130,7 @@ fun WearApp() {
 
                 // TODO: Remove item; for beginning only.
                 // item { StartOnlyTextComposables() }
+                // item { TimeTextExample(contentModifier) }
 
                 /* ******************* Part 1: Simple composables ******************* */
                 item { ButtonExample(contentModifier, iconModifier) }
@@ -145,6 +146,15 @@ fun WearApp() {
         }
     }
 }
+
+//fun ScalingLazyListState.firstElementOffSet():Int = {
+//    val itemInfoList = this.layoutInfo.visibleItemsInfo
+//    if (itemInfoList.isNotEmpty() && itemInfoList[0].index == 0) {
+//        return itemInfoList[0].offset
+//    } else {
+//        return Int.MAX_VALUE
+//    }
+//}
 
 // Note: Preview in Android Studio doesn't support the round view yet (coming soon).
 @Preview(
