@@ -65,7 +65,7 @@ fun ButtonExample(
         // Button
         Button(
             modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
-            onClick = {},
+            onClick = { /**/ },
         ) {
             Icon(
                 imageVector = Icons.Rounded.Phone,
@@ -79,7 +79,12 @@ fun ButtonExample(
 // TODO: Create a Text Composable
 @Composable
 fun TextExample(modifier: Modifier = Modifier) {
-
+    Text(
+        modifier = modifier,
+        textAlign = TextAlign.Center,
+        color = MaterialTheme.colors.primary,
+        text = stringResource(R.string.device_shape)
+    )
 }
 
 // TODO: Create a Card (specifically, an AppCard) Composable
