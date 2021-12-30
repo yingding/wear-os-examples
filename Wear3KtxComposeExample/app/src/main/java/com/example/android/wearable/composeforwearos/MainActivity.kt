@@ -16,6 +16,7 @@
 package com.example.android.wearable.composeforwearos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -27,6 +28,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -80,12 +82,30 @@ fun WearApp() {
         // TODO (Start): Create a Scaffold (Wear Version)
         Scaffold(
             timeText = {
-                       if (!listState.isScrollInProgress) {
+                /*
+                if (!listState.isScrollInProgress ) {
                            TimeText()
-                       }
+                }*/
+                val itemInfoList = listState.layoutInfo.visibleItemsInfo
+                // the first element is scrolled up more than 15dp, deactivate the Time Text
+                if (itemInfoList.isNotEmpty()
+                    && itemInfoList[0].index == 0 // the first visible index is the first element
+                    && itemInfoList[0].offset >= -15 // the first element is scrolled up less than 15dp
+                ) {
+                    // show time text
+                    TimeText()
+                }
             },
-            vignette = {},
-            positionIndicator = {}
+            vignette = {
+                       // Only show a Vignette for scrollable screens. This code lab only has one screen,
+                       // which is scrollable, so we show it all the time.
+                       Vignette(vignettePosition = VignettePosition.TopAndBottom)
+            },
+            positionIndicator = {
+                PositionIndicator(
+                    scalingLazyListState = listState
+                )
+            }
             ) {
 
 
