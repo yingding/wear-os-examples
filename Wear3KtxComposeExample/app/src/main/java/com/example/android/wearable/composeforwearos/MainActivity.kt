@@ -73,10 +73,21 @@ fun WearApp() {
 
     WearAppTheme {
         // TODO: Swap to ScalingLazyListState
-        val listState = rememberLazyListState()
+        // val listState = rememberLazyListState()
+        val listState = rememberScalingLazyListState()
 
         /* *************************** Part 4: Wear OS Scaffold *************************** */
         // TODO (Start): Create a Scaffold (Wear Version)
+        Scaffold(
+            timeText = {
+                       if (!listState.isScrollInProgress) {
+                           TimeText()
+                       }
+            },
+            vignette = {},
+            positionIndicator = {}
+            ) {
+
 
             // Modifiers used by our Wear composables.
             val contentModifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
@@ -84,7 +95,8 @@ fun WearApp() {
 
             /* *************************** Part 3: ScalingLazyColumn *************************** */
             // TODO: Swap a ScalingLazyColumn (Wear's version of LazyColumn)
-            LazyColumn(
+            // LazyColumn(
+            ScalingLazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(
                     top = 32.dp,
@@ -109,8 +121,8 @@ fun WearApp() {
                 item { ToggleChipExample(contentModifier) }
             }
 
-        // TODO (End): Create a Scaffold (Wear Version)
-
+            // TODO (End): Create a Scaffold (Wear Version)
+        }
     }
 }
 

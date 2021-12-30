@@ -119,12 +119,47 @@ fun ChipExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    Chip(
+        modifier = modifier,
+        onClick = {},
+        label = {
+            Text(
+                text = "5 minute Meditation",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        icon = {
+            Icon(
+                imageVector = Icons.Rounded.SelfImprovement,
+                contentDescription = "triggers meditation action",
+                modifier =  iconModifier
+            )
+        }
+    )
 }
 
 // TODO: Create a ToggleChip Composable
 @Composable
 fun ToggleChipExample(modifier: Modifier = Modifier) {
+    var checked by remember { mutableStateOf(true)}
+    ToggleChip(
+        modifier = modifier,
+        checked = checked,
+        toggleIcon = {
+            ToggleChipDefaults.SwitchIcon(checked = checked)
+        },
+        onCheckedChange = {
+            checked = it
+        },
+        label = {
+            Text(
+                text = "Sound",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    )
 
 }
 
