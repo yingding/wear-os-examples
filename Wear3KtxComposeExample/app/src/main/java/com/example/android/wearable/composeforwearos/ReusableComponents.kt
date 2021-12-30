@@ -93,7 +93,24 @@ fun CardExample(
     modifier: Modifier = Modifier,
     iconModifier: Modifier = Modifier
 ) {
-
+    AppCard(
+        modifier = modifier,
+        appImage = {
+            Icon(
+                imageVector = Icons.Rounded.Message,
+                contentDescription = "triggers open message action",
+                modifier = iconModifier
+            )
+        },
+        appName = { Text("Message") },
+        time = { Text("12m") },
+        title = { Text("Kim Green") },
+        onClick = {}
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text("On my way!")
+        }
+    }
 }
 
 // TODO: Create a Chip Composable
