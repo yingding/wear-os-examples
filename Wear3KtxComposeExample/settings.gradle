@@ -20,5 +20,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Compose for Wear OS Code Lab"
+rootProject.name = "Wear3KtxComposeExample"
 include ':start', ':finished', ':app'
