@@ -19,12 +19,12 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.example.android.wearable.composeforwearos"
         // 26 - Second oldest Wear 2.0 version (majority of devices)
-        minSdk 26
+        minSdk 25
         // 30 - First Wear 3.0 version (and latest version of Wear OS)
         targetSdk 30
         versionCode 1
@@ -52,7 +52,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion "$compose_version"
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
     }
     packagingOptions {
         resources {
@@ -71,6 +71,8 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation "androidx.compose.foundation:foundation:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    // compiler
+    implementation "androidx.compose.compiler:compiler:$compose_compiler_version"
 
     // Compose for Wear OS Dependencies
     implementation "androidx.wear.compose:compose-material:$wear_compose_version"
