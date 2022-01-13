@@ -16,10 +16,8 @@
 package com.example.android.wearable.composeforwearos
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,8 +26,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +36,8 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListAnchorType
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
@@ -74,9 +72,23 @@ class MainActivity : ComponentActivity() {
 fun WearApp() {
 
     WearAppTheme {
+        // Get Screen Info
+        /*
+        val configuration = LocalConfiguration.current
+        val screenHeight: Int = configuration.screenHeightDp
+        Log.v("screenHeight", "${screenHeight}")
+        */
+
         // TODO: Swap to ScalingLazyListState
         // val listState = rememberLazyListState()
-        val listState = rememberScalingLazyListState()
+        // val listState: ScalingLazyListState = rememberScalingLazyListState()
+
+        val initCenterItemOffset = -21
+        val initCenterItemIdx = 1
+        val listState: ScalingLazyListState = rememberScalingLazyListState(
+            initialCenterItemIndex = initCenterItemIdx,
+            initialCenterItemScrollOffset = initCenterItemOffset
+        )
 
         /* *************************** Part 4: Wear OS Scaffold *************************** */
         // TODO (Start): Create a Scaffold (Wear Version)
@@ -85,16 +97,28 @@ fun WearApp() {
                 /*
                 if (!listState.isScrollInProgress ) {
                            TimeText()
-                }*/
-                val itemInfoList = listState.layoutInfo.visibleItemsInfo
+                }
+                */
+
+                // Alpha14 wear compose solution
+                // ScalingLazyColumn scroll up 15dp then deactivate TimeText
+                if (listState.centerItemIndex == initCenterItemIdx
+                    && listState.centerItemScrollOffset <= initCenterItemOffset + 15) { // scroll up addes offset
+                    TimeText()
+                }
+
+                /*
+                // Alpha13 wear compose solution
                 // the first element is scrolled up more than 15dp, deactivate the Time Text
+                val itemInfoList = listState.layoutInfo.visibleItemsInfo
                 if (itemInfoList.isNotEmpty()
                     && itemInfoList[0].index == 0 // the first visible index is the first element
                     && itemInfoList[0].offset >= -15 // the first element is scrolled up less than 15dp
                 ) {
-                    // show time text
                     TimeText()
                 }
+                */
+
             },
             vignette = {
                        // Only show a Vignette for scrollable screens. This code lab only has one screen,
@@ -125,7 +149,8 @@ fun WearApp() {
                     bottom = 32.dp
                 ),
                 verticalArrangement = Arrangement.Center,
-                state = listState
+                state = listState,
+                anchorType = ScalingLazyListAnchorType.ItemCenter
             ) {
 
                 // TODO: Remove item; for beginning only.
