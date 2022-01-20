@@ -47,6 +47,8 @@ android {
         jvmTarget = '1.8'
         useIR = true
         freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
     }
     buildFeatures {
         compose true

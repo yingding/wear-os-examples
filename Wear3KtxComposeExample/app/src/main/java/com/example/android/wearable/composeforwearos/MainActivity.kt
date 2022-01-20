@@ -15,6 +15,7 @@
  */
 package com.example.android.wearable.composeforwearos
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -29,10 +30,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -67,8 +68,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// @OptIn(ExperimentalWearMaterialApi::class)
 @Composable
-@OptIn(ExperimentalWearMaterialApi::class)
 fun WearApp() {
 
     WearAppTheme {
@@ -182,13 +183,21 @@ fun WearApp() {
 //}
 
 // Note: Preview in Android Studio doesn't support the round view yet (coming soon).
+//@Preview(
+//    apiLevel = 25,
+//    uiMode = Configuration.UI_MODE_TYPE_WATCH,
+//    showSystemUi = true
+//)
 @Preview(
     widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
     heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,
     apiLevel = WEAR_PREVIEW_API_LEVEL,
-    uiMode = WEAR_PREVIEW_UI_MODE,
+    // uiMode = WEAR_PREVIEW_UI_MODE,
+    uiMode = Configuration.UI_MODE_TYPE_WATCH,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
-    showBackground = WEAR_PREVIEW_SHOW_BACKGROUND
+    showBackground = WEAR_PREVIEW_SHOW_BACKGROUND,
+    showSystemUi = false, // the android system bar on top
+    // device = Devices.
 )
 @Composable
 fun WearAppPreview() {

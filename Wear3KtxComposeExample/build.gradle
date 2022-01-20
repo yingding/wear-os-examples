@@ -21,6 +21,7 @@ buildscript {
         compose_version = '1.1.0-rc01' // still need kotlin 1.6.0 which is defined by AGP version
         // compose_version = '1.2.0-alpha1'
         compose_compiler_version = '1.1.0-rc02' // works with kotlin 1.6.10
+        // compose_compiler_version = '1.2.0-alpha1'
         // https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.1.0-rc02
         lifecycle_version = '2.4.0'
         wear_compose_version = '1.0.0-alpha14'
@@ -42,6 +43,7 @@ buildscript {
         // maven { url 'https://androidx.dev/snapshots/builds/8036295/artifacts/repository' }
     }
     dependencies {
+        // classpath 'com.android.tools.build:gradle:7.1.0-rc01'
         classpath 'com.android.tools.build:gradle:7.0.4'
         // compose still requires 1.5.31
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
