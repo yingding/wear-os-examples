@@ -17,6 +17,7 @@ package com.example.android.wearable.composeforwearos
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -103,9 +104,14 @@ fun WearApp() {
 
                 // Alpha14 wear compose solution
                 // ScalingLazyColumn scroll up 15dp then deactivate TimeText
-                if (listState.centerItemIndex == initCenterItemIdx
-                    && listState.centerItemScrollOffset <= initCenterItemOffset + 15) { // scroll up addes offset
+                if (
+                    (listState.centerItemIndex == initCenterItemIdx &&
+                            listState.centerItemScrollOffset <= initCenterItemOffset + 15) ||
+                    (listState.centerItemIndex == 0)
+                ) { // scroll up addes offset
                     TimeText()
+                } else {
+                    Log.d("no timetext" ,"itemIndex ${listState.centerItemIndex}, centerOffset: ${listState.centerItemScrollOffset}")
                 }
 
                 /*
@@ -189,15 +195,20 @@ fun WearApp() {
 //    showSystemUi = true
 //)
 @Preview(
-    widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
-    heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,
+    // widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
+    // heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,
     apiLevel = WEAR_PREVIEW_API_LEVEL,
     // uiMode = WEAR_PREVIEW_UI_MODE,
     uiMode = Configuration.UI_MODE_TYPE_WATCH,
     backgroundColor = WEAR_PREVIEW_BACKGROUND_COLOR_BLACK,
     showBackground = WEAR_PREVIEW_SHOW_BACKGROUND,
     showSystemUi = false, // the android system bar on top
-    // device = Devices.
+    device = Devices.WEAR_OS_SQUARE
+)
+@Preview(
+    apiLevel = WEAR_PREVIEW_API_LEVEL,
+    uiMode = Configuration.UI_MODE_TYPE_WATCH,
+    device = Devices.WEAR_OS_SMALL_ROUND
 )
 @Composable
 fun WearAppPreview() {
