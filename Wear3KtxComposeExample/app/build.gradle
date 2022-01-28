@@ -19,14 +19,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
         applicationId "com.example.android.wearable.composeforwearos"
         // 26 - Second oldest Wear 2.0 version (majority of devices)
-        minSdk 25
+        minSdk rootProject.minSdk
         // 30 - First Wear 3.0 version (and latest version of Wear OS)
-        targetSdk 30
+        targetSdk rootProject.targetSdk
         versionCode 1
         versionName "1.0"
 
