@@ -33,7 +33,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -105,13 +104,15 @@ fun WearApp() {
                 // Alpha14 wear compose solution
                 // ScalingLazyColumn scroll up 15dp then deactivate TimeText
                 if (
-                    (listState.centerItemIndex == initCenterItemIdx &&
-                            listState.centerItemScrollOffset <= initCenterItemOffset + 15) ||
+                    (
+                        listState.centerItemIndex == initCenterItemIdx &&
+                            listState.centerItemScrollOffset <= initCenterItemOffset + 15
+                        ) ||
                     (listState.centerItemIndex == 0)
                 ) { // scroll up addes offset
                     TimeText()
                 } else {
-                    Log.d("no timetext" ,"itemIndex ${listState.centerItemIndex}, centerOffset: ${listState.centerItemScrollOffset}")
+                    Log.d("no timetext", "itemIndex ${listState.centerItemIndex}, centerOffset: ${listState.centerItemScrollOffset}")
                 }
 
                 /*
@@ -125,20 +126,18 @@ fun WearApp() {
                     TimeText()
                 }
                 */
-
             },
             vignette = {
-                       // Only show a Vignette for scrollable screens. This code lab only has one screen,
-                       // which is scrollable, so we show it all the time.
-                       Vignette(vignettePosition = VignettePosition.TopAndBottom)
+                // Only show a Vignette for scrollable screens. This code lab only has one screen,
+                // which is scrollable, so we show it all the time.
+                Vignette(vignettePosition = VignettePosition.TopAndBottom)
             },
             positionIndicator = {
                 PositionIndicator(
                     scalingLazyListState = listState
                 )
             }
-            ) {
-
+        ) {
 
             // Modifiers used by our Wear composables.
             val contentModifier = Modifier.fillMaxWidth().padding(bottom = 8.dp)
@@ -179,21 +178,21 @@ fun WearApp() {
     }
 }
 
-//fun ScalingLazyListState.firstElementOffSet():Int = {
+// fun ScalingLazyListState.firstElementOffSet():Int = {
 //    val itemInfoList = this.layoutInfo.visibleItemsInfo
 //    if (itemInfoList.isNotEmpty() && itemInfoList[0].index == 0) {
 //        return itemInfoList[0].offset
 //    } else {
 //        return Int.MAX_VALUE
 //    }
-//}
+// }
 
 // Note: Preview in Android Studio doesn't support the round view yet (coming soon).
-//@Preview(
+// @Preview(
 //    apiLevel = 25,
 //    uiMode = Configuration.UI_MODE_TYPE_WATCH,
 //    showSystemUi = true
-//)
+// )
 @Preview(
     // widthDp = WEAR_PREVIEW_DEVICE_WIDTH_DP,
     // heightDp = WEAR_PREVIEW_DEVICE_HEIGHT_DP,

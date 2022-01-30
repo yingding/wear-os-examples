@@ -43,13 +43,13 @@ import androidx.wear.compose.material.AppCard
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
-import androidx.wear.compose.material.TimeText
-import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import com.example.android.wearable.composeforwearos.theme.WearAppTheme
 
 /* Contains individual Wear OS demo composables for the code lab. */
@@ -146,7 +146,7 @@ fun ChipExample(
             Icon(
                 imageVector = Icons.Rounded.SelfImprovement,
                 contentDescription = "triggers meditation action",
-                modifier =  iconModifier
+                modifier = iconModifier
             )
         }
     )
@@ -155,7 +155,7 @@ fun ChipExample(
 // TODO: Create a ToggleChip Composable
 @Composable
 fun ToggleChipExample(modifier: Modifier = Modifier) {
-    var checked by remember { mutableStateOf(true)}
+    var checked by remember { mutableStateOf(true) }
     ToggleChip(
         modifier = modifier,
         checked = checked,
@@ -173,7 +173,6 @@ fun ToggleChipExample(modifier: Modifier = Modifier) {
             )
         }
     )
-
 }
 
 // Function only used as a demo for when you start the code lab (removed as step 1).
@@ -281,7 +280,6 @@ fun CardExamplePreview() {
         )
     }
 }
-
 
 // Chip Preview
 @Preview(

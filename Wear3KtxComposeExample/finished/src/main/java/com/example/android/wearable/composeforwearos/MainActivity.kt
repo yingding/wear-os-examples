@@ -18,7 +18,6 @@ package com.example.android.wearable.composeforwearos
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -121,7 +120,7 @@ fun WearApp() {
                 item { ToggleChipExample(contentModifier) }
             }
 
-        // TODO (End): Create a Scaffold (Wear Version)
+            // TODO (End): Create a Scaffold (Wear Version)
         }
     }
 }

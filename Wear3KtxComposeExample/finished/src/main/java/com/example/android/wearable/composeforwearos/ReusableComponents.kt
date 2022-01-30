@@ -252,7 +252,6 @@ fun CardExamplePreview() {
     }
 }
 
-
 // Chip Preview
 @Preview(
     group = "Chip",

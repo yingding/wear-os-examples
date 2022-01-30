@@ -76,7 +76,8 @@ subprojects {
             targetExclude('bin/**/*.kt')
 
             ktlint("0.41.0")
-            licenseHeaderFile rootProject.file('spotless/copyright.kt')
+            // Do not need to add the copyright header
+            // licenseHeaderFile rootProject.file('spotless/copyright.kt')
         }
     }
 }
