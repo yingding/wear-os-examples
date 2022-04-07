@@ -18,3 +18,4 @@ https://developer.android.com/jetpack/androidx/releases/wear-compose#1.0.0-alpha
 ```
 Reference:
 * https://github.com/diffplug/spotless/tree/main/plugin-gradle
+* https://github.com/diffplug/spotless
