@@ -160,7 +160,10 @@ fun ToggleChipExample(modifier: Modifier = Modifier) {
         modifier = modifier,
         checked = checked,
         toggleControl = {
-            ToggleChipDefaults.switchIcon(checked = checked)
+            Icon(
+                imageVector = ToggleChipDefaults.switchIcon(checked = checked),
+                contentDescription = if (checked) "Checked" else "Unchecked"
+            )
         },
         onCheckedChange = {
             checked = it
