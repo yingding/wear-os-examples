@@ -147,7 +147,7 @@ fun ToggleChipExample(modifier: Modifier = Modifier) {
         modifier = modifier,
         checked = checked,
         toggleControl = {
-            ToggleChipDefaults.SwitchIcon(checked = checked)
+            ToggleChipDefaults.switchIcon(checked = checked)
         },
         onCheckedChange = {
             checked = it
