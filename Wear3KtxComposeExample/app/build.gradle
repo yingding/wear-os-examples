@@ -22,7 +22,7 @@ android {
     compileSdk rootProject.compileSdk
 
     defaultConfig {
-        applicationId "com.example.android.wearable.composeforwearos"
+        applicationId rootProject.applicationId
         // 26 - Second oldest Wear 2.0 version (majority of devices)
         minSdk rootProject.minSdk
         // 30 - First Wear 3.0 version (and latest version of Wear OS)
@@ -63,6 +63,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    // namespace "$namespace"
 }
 
 
