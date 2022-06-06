@@ -18,7 +18,9 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
 import com.example.wearpagerexample.main.ContentExample
+import com.example.wearpagerexample.main.FadeAwayScreenLazyColumn
 import com.example.wearpagerexample.theme.WearAppTheme
+import com.google.android.horologist.compose.pager.PagerScreen
 
 /*
  * MainActivity inherits AppCompatActivity which is a ComponentActivity
@@ -36,7 +38,11 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun WearApp() {
     WearAppTheme {
-        CenteredHelloWorld()
+//        PagerScreen(count = 2) {
+//            Text("page 2")
+//        }
+        FadeAwayScreenLazyColumn()
+        // CenteredHelloWorld()
     }
 }
 
