@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="wearXmlAppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- change the AppCompat.DayNight initial background to back -->
+        <item name="android:background">@android:color/black</item>
+    </style>
+</resources>
