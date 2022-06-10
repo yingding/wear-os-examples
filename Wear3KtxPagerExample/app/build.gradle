@@ -6,6 +6,7 @@ plugins {
 
 android {
     compileSdk rootProject.compileSdk
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId rootProject.applicationId

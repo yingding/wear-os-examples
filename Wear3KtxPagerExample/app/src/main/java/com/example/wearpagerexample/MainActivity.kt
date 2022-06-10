@@ -2,7 +2,6 @@ package com.example.wearpagerexample
 
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
@@ -42,7 +41,6 @@ fun WearApp() {
 //            Text("page 2")
 //        }
         FadeAwayScreenLazyColumn()
-        // CenteredHelloWorld()
     }
 }
 

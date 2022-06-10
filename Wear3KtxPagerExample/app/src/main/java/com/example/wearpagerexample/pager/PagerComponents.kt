@@ -2,13 +2,9 @@ package com.example.wearpagerexample.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -29,7 +25,6 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.wearpagerexample.R
-import com.google.android.horologist.compose.layout.fadeAwayLazyList
 import com.google.android.horologist.compose.layout.fadeAwayScalingLazyList
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
@@ -38,14 +33,15 @@ fun ContentExample(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier,
         text = stringResource(R.string.hello_world)
-        // text = "hello world!"
     )
 }
 
 @Composable
 fun FadeAwayScreenLazyColumn() {
-    val scrollState: ScalingLazyListState = rememberScalingLazyListState()
-    // val scrollState = rememberLazyListState()
+    val scrollState: ScalingLazyListState = rememberScalingLazyListState(
+        initialCenterItemIndex = 0,
+        // initialCenterItemScrollOffset = -10,
+    )
     val focusRequester = remember { FocusRequester() }
 
     Scaffold(
@@ -59,15 +55,14 @@ fun FadeAwayScreenLazyColumn() {
     ) {
         ScalingLazyColumn(
             modifier = Modifier.scrollableColumn(focusRequester, scrollState),
-                // .padding(top = 24.dp), // additional top padding
+            contentPadding = PaddingValues(
+                top = 24.dp, // additional top padding of item content
+                start = 10.dp,
+                end = 10.dp,
+                bottom = 0.dp
+            ),
             state = scrollState
         ) {
-            item {
-                // TODO: reduce the size of spacer
-                Spacer(modifier = Modifier.height(2.dp)
-                    // .padding(0.dp)
-                )
-            }
             items(3) { i ->
                 val modifier = Modifier.fillParentMaxHeight(0.4f)
                 ExampleCard(modifier = modifier.padding(top = 0.dp, bottom = 0.dp), i = i)
