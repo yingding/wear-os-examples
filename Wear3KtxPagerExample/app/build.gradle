@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id "org.jetbrains.kotlin.kapt"
+    // id "org.jetbrains.kotlin.kapt"
 }
 
 android {
@@ -41,8 +41,9 @@ android {
         freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
         freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
         freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi" // used for FadeAwayScreenLazyColumn preview
+
         // freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
-        // freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi"
         // freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
     }
     packagingOptions {

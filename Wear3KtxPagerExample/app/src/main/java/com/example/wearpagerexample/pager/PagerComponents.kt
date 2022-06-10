@@ -92,22 +92,24 @@ private fun ExampleCard(modifier: Modifier = Modifier, i: Int) {
     }
 }
 
-//@Preview(
-//    device = Devices.WEAR_OS_LARGE_ROUND,
-//    showSystemUi = true,
-//    backgroundColor = 0xff000000,
-//    showBackground = true
-//)
-//@Preview(
-//    device = Devices.WEAR_OS_SQUARE,
-//    showSystemUi = true,
-//    backgroundColor = 0xff000000,
-//    showBackground = true
-//)
-//@Composable
-//fun FadeAwayScreenPreview() {
-//    FadeAwayScreenLazyColumn()
-//}
+@Preview(
+    device = Devices.WEAR_OS_LARGE_ROUND,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Preview(
+    device = Devices.WEAR_OS_SQUARE,
+    showSystemUi = true,
+    backgroundColor = 0xff000000,
+    showBackground = true
+)
+@Composable
+fun FadeAwayScreenPreview() {
+    MaterialTheme {
+        FadeAwayScreenLazyColumn()
+    }
+}
 
 
 @Preview
