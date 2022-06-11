@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    // id "org.jetbrains.kotlin.kapt"
 }
 
 android {
@@ -73,12 +72,9 @@ dependencies {
     implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
 
-    // for the app material theme so that the view system can have app compat and material
-    // implementation "com.google.android.material:material:1.6.1"
-
-    // Accompanist
+    // Accompanist and horologist libs
     implementation "com.google.accompanist:accompanist-appcompat-theme:$accompanist_version" // AppCompatTheme
-    implementation "com.google.android.horologist:horologist-compose-layout:0.0.22"
+    implementation "com.google.android.horologist:horologist-compose-layout:$horologist_version"
 
 
     // If you are using Compose Navigation, use the Wear OS version (NOT the
@@ -92,9 +88,6 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
-    // implementation 'androidx.core:core-ktx:1.7.0'
-    // implementation 'com.google.android.gms:play-services-wearable:17.1.0'
-    // implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     // implementation 'androidx.recyclerview:recyclerview:1.2.1'
     // implementation 'androidx.wear:wear:1.2.0'

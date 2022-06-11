@@ -3,6 +3,7 @@ buildscript {
         // using a AppComatTheme which is a MaterialTheme for AppCompatActivity
         // https://developer.android.com/jetpack/compose/interop/compose-in-existing-ui
         accompanist_version = '0.24.10-beta'
+        horologist_version = '0.0.23'
         app_compat_version = '1.4.2' // AppCompactActivity
         // Dependency versions.
         activity_compose_version = '1.4.0'
