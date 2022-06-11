@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 import com.example.wearpagerexample.main.ContentExample
 import com.example.wearpagerexample.main.FadeAwayScreenLazyColumn
+import com.example.wearpagerexample.pager.HorizontalPagers
 import com.example.wearpagerexample.theme.WearAppTheme
 import com.google.android.horologist.compose.pager.PagerScreen
 
@@ -40,7 +41,8 @@ fun WearApp() {
 //        PagerScreen(count = 2) {
 //            Text("page 2")
 //        }
-        FadeAwayScreenLazyColumn()
+        // FadeAwayScreenLazyColumn()
+        HorizontalPagers()
     }
 }
 
