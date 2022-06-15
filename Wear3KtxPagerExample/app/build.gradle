@@ -23,7 +23,8 @@ android {
         }
     }
     buildFeatures {
-        // viewBinding true
+        // testing with viewBinding
+        viewBinding true
         compose true
     }
     composeOptions {
