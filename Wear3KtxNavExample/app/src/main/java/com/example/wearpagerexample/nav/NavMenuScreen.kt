@@ -50,7 +50,7 @@ fun NavMenuScreen(
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Setting.route) },
-                label = "setting"
+                label = "Setting"
             )
         }
 

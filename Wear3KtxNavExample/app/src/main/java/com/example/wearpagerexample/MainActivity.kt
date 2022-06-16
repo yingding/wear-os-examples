@@ -83,7 +83,7 @@ fun WearNavApp(navController: NavHostController) {
         }
         wearNavComposable(NavScreen.Setting.route) { _,_ ->
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Graph")
+                Text(text = "Setting")
             }
         }
     }
