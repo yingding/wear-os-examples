@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,23 +14,36 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.navigation
+import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.example.wearpagerexample.nav.NavMenuScreen
+import com.example.wearpagerexample.nav.NavScreen
 
 import com.example.wearpagerexample.theme.WearAppTheme
+import com.google.android.horologist.compose.navscaffold.WearNavScaffold
+import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
+import com.google.android.horologist.compose.navscaffold.wearNavComposable
 
 /*
  * MainActivity inherits AppCompatActivity which is a ComponentActivity
  */
 class MainActivity : ComponentActivity() {
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent{
-            WearApp()
+            navController = rememberSwipeDismissableNavController()
+            WearNavApp(navController = navController)
         }
     }
 }
@@ -39,6 +53,41 @@ fun WearApp() {
     WearAppTheme {
         CenteredHelloWorld()
     }
+}
+
+@Composable
+fun WearNavApp(navController: NavHostController) {
+    WearNavScaffold(
+        startDestination = NavScreen.Menu.route,
+        navController = navController,
+    ) {
+        scalingLazyColumnComposable(
+            route = NavScreen.Menu.route,
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+        ) {
+            NavMenuScreen(
+                navigateToRoute = { route -> navController.navigate(route)},
+                scrollState = it.scrollableState,
+                focusRequester = FocusRequester() // todo: put it into a viewModel
+                )
+        }
+        wearNavComposable(NavScreen.Activity.route) { _,_ ->
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Activity")
+            }
+        }
+        wearNavComposable(NavScreen.Graph.route) { _,_ ->
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Graph")
+            }
+        }
+        wearNavComposable(NavScreen.Setting.route) { _,_ ->
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Graph")
+            }
+        }
+    }
+
 }
 
 @Composable
