@@ -68,7 +68,7 @@ fun WearNavApp(navController: NavHostController) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route)},
                 scrollState = it.scrollableState,
-                focusRequester = FocusRequester() // todo: put it into a viewModel
+                // focusRequester = remember { FocusRequester() } // todo: put it into a viewModel
                 )
         }
         wearNavComposable(NavScreen.Activity.route) { _,_ ->
