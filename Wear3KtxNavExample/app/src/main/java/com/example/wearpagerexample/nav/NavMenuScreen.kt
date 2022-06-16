@@ -30,8 +30,11 @@ fun NavMenuScreen(
         modifier = modifier.scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = AutoCenteringParams(itemIndex = 0),
+        autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 30),
     ) {
+        item {
+            Text(text = "Menu")
+        }
         item {
             SampleChip(
                 onClick = { navigateToRoute(NavScreen.Activity.route) },
