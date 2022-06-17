@@ -14,17 +14,16 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.navigation
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.example.wearpagerexample.nav.NavMenuScreen
 import com.example.wearpagerexample.nav.NavScreen
 
@@ -57,9 +56,14 @@ fun WearApp() {
 
 @Composable
 fun WearNavApp(navController: NavHostController) {
+
+    val swipeDismissState = rememberSwipeToDismissBoxState()
+    val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
+
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
         navController = navController,
+        state = navState
     ) {
         scalingLazyColumnComposable(
             route = NavScreen.Menu.route,
