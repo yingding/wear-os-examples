@@ -21,9 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.rememberSwipeToDismissBoxState
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.example.wearpagerexample.nav.NavMenuScreen
 import com.example.wearpagerexample.nav.NavScreen
 
@@ -54,16 +52,17 @@ fun WearApp() {
     }
 }
 
+
 @Composable
 fun WearNavApp(navController: NavHostController) {
-
-    val swipeDismissState = rememberSwipeToDismissBoxState()
-    val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
+    // remove the swipe dismiss state since not pagerScreen is used.
+//    val swipeDismissState = rememberSwipeToDismissBoxState()
+//    val navState = rememberSwipeDismissableNavHostState(swipeDismissState)
 
     WearNavScaffold(
         startDestination = NavScreen.Menu.route,
         navController = navController,
-        state = navState
+        // state = navState
     ) {
         scalingLazyColumnComposable(
             route = NavScreen.Menu.route,
