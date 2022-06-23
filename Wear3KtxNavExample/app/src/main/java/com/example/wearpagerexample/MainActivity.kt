@@ -70,7 +70,7 @@ fun WearNavApp(navController: NavHostController) {
              * autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 30)
              * Time text is not shown https://github.com/google/horologist/issues/245
              */
-            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -30) }
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route)},
