@@ -1,7 +1,7 @@
 buildscript {
     ext {
         // accompanist_version = '0.24.10-beta'
-        horologist_version = '0.0.25'
+        horologist_version = '0.0.26'
         app_compat_version = '1.4.2' // AppCompactActivity
         // Dependency versions.
         activity_compose_version = '1.5.0-rc01' // '1.4.0'
