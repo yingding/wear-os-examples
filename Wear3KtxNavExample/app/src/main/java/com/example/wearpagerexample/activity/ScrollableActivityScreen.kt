@@ -9,6 +9,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
 import com.example.wearpagerexample.nav.SampleChip
 import com.google.android.horologist.compose.navscaffold.scrollableColumn
 
@@ -22,8 +23,11 @@ fun ScrollableActivityScreen(
         modifier = modifier.scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
-        autoCentering = AutoCenteringParams(itemIndex = 0),
+        autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 10),
     ) {
+        item {
+            Text(text = "Activities")
+        }
         item {
             SampleChip(
                 onClick = {},

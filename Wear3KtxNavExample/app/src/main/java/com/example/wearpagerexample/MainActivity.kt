@@ -81,7 +81,7 @@ fun WearNavApp(navController: NavHostController) {
         }
         scalingLazyColumnComposable(
             route = NavScreen.Activity.route,
-            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -50) }
         ) {
             ScrollableActivityScreen(
                 scrollState = it.scrollableState,
