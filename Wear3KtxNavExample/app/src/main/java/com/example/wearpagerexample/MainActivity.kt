@@ -22,6 +22,7 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import com.example.wearpagerexample.activity.ScrollableActivityScreen
 import com.example.wearpagerexample.nav.NavMenuScreen
 import com.example.wearpagerexample.nav.NavScreen
 
@@ -78,11 +79,19 @@ fun WearNavApp(navController: NavHostController) {
                 // focusRequester = remember { FocusRequester() } // todo: put it into a viewModel
                 )
         }
-        wearNavComposable(NavScreen.Activity.route) { _,_ ->
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Activity")
-            }
+        scalingLazyColumnComposable(
+            route = NavScreen.Activity.route,
+            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 0) }
+        ) {
+            ScrollableActivityScreen(
+                scrollState = it.scrollableState,
+            )
         }
+//        wearNavComposable(NavScreen.Activity.route) { _,_ ->
+//            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//                Text(text = "Activity")
+//            }
+//        }
         wearNavComposable(NavScreen.Graph.route) { _,_ ->
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Graph")
