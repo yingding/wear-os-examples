@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk rootProject.compileSdk
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.applicationId
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs += "-opt-in=androidx.wear.compose.material.ExperimentalWearMaterialApi"
+        freeCompilerArgs += "-opt-in=com.google.android.horologist.compose.navscaffold.ExperimentalHorologistComposeLayoutApi"
+        freeCompilerArgs += "-opt-in=com.google.accompanist.pager.ExperimentalPagerApi"
+        freeCompilerArgs += "-opt-in=androidx.compose.ui.ExperimentalComposeUiApi" // used for FadeAwayScreenLazyColumn preview
+
+        // freeCompilerArgs += "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi"
+        // freeCompilerArgs += "-opt-in=androidx.compose.animation.ExperimentalAnimationApi"
+    }
+    packagingOptions {
+        resources {
+            // Studio default, files not needed for APK, so excluded. If you include the same file
+            // with the same path more than once in the output, you'll get a build conflict.
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+}
+
+dependencies {
+    // General Compose dependencies
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version" // accompanist need androidx.compose.material
+    // compiler
+    implementation "androidx.compose.compiler:compiler:$compose_compiler_version"
+    // Compose for Wear OS Dependencies
+    implementation "androidx.wear.compose:compose-material:$wear_compose_version"
+    // Foundation is additive, so you can use the mobile version in your Wear OS app.
+    implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
+
+    // Accompanist and horologist libs
+    // implementation "com.google.accompanist:accompanist-appcompat-theme:$accompanist_version" // AppCompatTheme
+    implementation "com.google.android.horologist:horologist-compose-layout:$horologist_version"
+
+
+    // If you are using Compose Navigation, use the Wear OS version (NOT the
+    // androidx.navigation:navigation-compose version), that is, uncomment the line below.
+    // implementation "androidx.wear.compose:compose-navigation:$wear_compose_version"
+
+    // Testing
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+}
