@@ -12,6 +12,10 @@ This project codes are updated and modified by the author of this project.
 
 * https://developer.android.com/codelabs/data-sources?hl=en#0
 
+## ComplicationDataSourceService compatibility
+The ComplicationDataSourceService is compatible with the Java WatchFace support ComplicationProviderService
+on Emulator Wear OS 3 rev 10.
+
 ## Reference:
 
 * Out-Dated Java ComplicaitonProviderService: https://developer.android.com/training/wearables/tiles/exposing-data-complications
