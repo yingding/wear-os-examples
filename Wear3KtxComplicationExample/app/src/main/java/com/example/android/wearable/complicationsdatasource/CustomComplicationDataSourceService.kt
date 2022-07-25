@@ -110,6 +110,22 @@ class CustomComplicationDataSourceService : SuspendingComplicationDataSourceServ
             )
                 .setTapAction(complicationPendingIntent)
                 .build()
+            ComplicationType.LONG_TEXT -> LongTextComplicationData.Builder(
+                text = PlainComplicationText.Builder(text = "Number: $numberText").build(),
+                contentDescription = PlainComplicationText.Builder(text = "Long Text version of Number.").build()
+            )
+                .setTapAction(complicationPendingIntent)
+                .build()
+            ComplicationType.RANGED_VALUE -> RangedValueComplicationData.Builder(
+                value = number.toFloat(),
+                min = 0f,
+                max = ComplicationTapBroadcastReceiver.MAX_NUMBER.toFloat(),
+                contentDescription = PlainComplicationText
+                    .Builder(text = "Ranged Value version of Number.").build()
+            )
+                .setText(PlainComplicationText.Builder(text = numberText).build())
+                .setTapAction(complicationPendingIntent)
+                .build()
 
             else -> {
                 if (Log.isLoggable(TAG, Log.WARN)) {

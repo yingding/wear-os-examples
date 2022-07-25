@@ -44,10 +44,14 @@
             <intent-filter>
                 <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
             </intent-filter>
-            <!-- Data Type we support , SMALL_IMAGE-->
+            <!-- Data Type we support , SMALL_IMAGE, https://developer.android.com/training/wearables/tiles/exposing-data-complications
+            -->
             <meta-data
                 android:name="android.support.wearable.complications.SUPPORTED_TYPES"
-                android:value="SHORT_TEXT" />
+                android:value="RANGED_VALUE, SHORT_TEXT, LONG_TEXT" />
+            <!-- the left format is the preferred format, it will show LONG_TEXT, then SHORT_TEXT -->
+            <!-- Keep in mind the watch face itself specifies the data types that a complication supports,
+                 and the order of preference of those types. -->
 
             <!-- Automated system update is 600s = 10min or 0 manually update-->
             <meta-data

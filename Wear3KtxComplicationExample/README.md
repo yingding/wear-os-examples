@@ -27,6 +27,10 @@ on Emulator Wear OS 3 rev 10.
 * ComplicationDataSourceService require SDK 26
 * The minSdk Version support `compose-wear` and ktx complication is SDK 26
 
+## What's next?
+Data Type of Complication: https://developer.android.com/training/wearables/tiles/complications#using_complication_types
+Build WatchFace: https://developer.android.com/training/wearables/watch-faces/index.html
+
 
 # (Original CodeLab Content) Exposing data to watch face complications on Wear OS
 
