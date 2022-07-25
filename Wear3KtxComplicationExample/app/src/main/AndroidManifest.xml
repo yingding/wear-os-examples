@@ -38,17 +38,21 @@
             android:icon="@drawable/ic_watch_white"
             android:label="@string/complications_data_sources_service_label"
             android:permission="com.google.android.wearable.permission.BIND_COMPLICATION_PROVIDER">
+            <!-- My Service extends either ComplicationDataSourceService
+            or SuspendingComplicationDataSourceService (variation that supports Kotlin Coroutines)
+            -->
             <intent-filter>
                 <action android:name="android.support.wearable.complications.ACTION_COMPLICATION_UPDATE_REQUEST" />
             </intent-filter>
-
+            <!-- Data Type we support , SMALL_IMAGE-->
             <meta-data
                 android:name="android.support.wearable.complications.SUPPORTED_TYPES"
-                android:value="SMALL_IMAGE" />
+                android:value="SHORT_TEXT" />
 
+            <!-- Automated system update is 600s = 10min or 0 manually update-->
             <meta-data
                 android:name="android.support.wearable.complications.UPDATE_PERIOD_SECONDS"
-                android:value="600" />
+                android:value="0" />
         </service>
 
         <receiver android:name=".ComplicationTapBroadcastReceiver" />

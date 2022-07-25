@@ -33,6 +33,9 @@ import kotlinx.coroutines.launch
  * Simple [BroadcastReceiver] subclass for asynchronously incrementing an integer for any
  * complication id triggered via TapAction on complication. Also, provides static method to create
  * a [PendingIntent] that triggers this receiver.
+ *
+ * Note:
+ * BroadcastReceiver() represents a simple backend to get the tap event from complication and update the data.
  */
 class ComplicationTapBroadcastReceiver : BroadcastReceiver() {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -62,6 +65,13 @@ class ComplicationTapBroadcastReceiver : BroadcastReceiver() {
                 // Request an update for the complication that has just been tapped, that is,
                 // the system call onComplicationUpdate on the specified complication data
                 // source.
+                val complicationDataSourceUpdateRequester =
+                    ComplicationDataSourceUpdateRequester.create(
+                        context = context,
+                        complicationDataSourceComponent = dataSource // The complication component
+                    )
+                complicationDataSourceUpdateRequester.requestUpdate(complicationId)
+                // complicationId represents location of complication, since on the same watchface multiple complication of same type is allowed.
 
             } finally {
                 // Always call finish, even if cancelled

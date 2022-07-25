@@ -10,7 +10,7 @@ This project codes are updated and modified by the author of this project.
 
 ## Learning progress
 
-* https://developer.android.com/codelabs/data-sources?hl=en#0
+* https://developer.android.com/codelabs/data-sources?hl=en#3
 
 ## ComplicationDataSourceService compatibility
 The ComplicationDataSourceService is compatible with the Java WatchFace support ComplicationProviderService

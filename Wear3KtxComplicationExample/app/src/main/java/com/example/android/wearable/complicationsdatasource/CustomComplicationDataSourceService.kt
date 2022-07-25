@@ -83,7 +83,42 @@ class CustomComplicationDataSourceService : SuspendingComplicationDataSourceServ
     override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData? {
         Log.d(TAG, "onComplicationRequest() id: ${request.complicationInstanceId}")
 
-        return null
+        // Create Tap Action so that the user can trigger an update by tapping the complication.
+        val thisDataSource = ComponentName(this, javaClass) // javaClass returns the runtime javaClass of current object
+        // We pass the complication id, so we can only update the specific complication tapped.
+        val complicationPendingIntent =
+            ComplicationTapBroadcastReceiver.getToggleIntent(
+                this,
+                thisDataSource,
+                request.complicationInstanceId // the request obj has the current complicationInstanceId
+            )
+
+        // Retrieves your data, in this case, we grab an incrementing number from Datastore.
+        // data is a Flow<T>
+        val number: Int = applicationContext.dataStore.data
+            .map { preferences ->
+                preferences[TAP_COUNTER_PREF_KEY] ?: 0 // elvis operator, if preference[TAP_COUNTER_PREF_KEY] doesn't exist return null
+            }
+            .first()
+        val numberText = String.format(Locale.getDefault(), "%d!", number)
+
+        // create a ComplicationData with TapAction
+        return when(request.complicationType) {
+            ComplicationType.SHORT_TEXT -> ShortTextComplicationData.Builder(
+                text = PlainComplicationText.Builder(text = numberText).build(),
+                contentDescription = PlainComplicationText.Builder(text = "Short Text version of Number.").build()
+            )
+                .setTapAction(complicationPendingIntent)
+                .build()
+
+            else -> {
+                if (Log.isLoggable(TAG, Log.WARN)) {
+                    Log.w(TAG, "Unexpected complication type ${request.complicationType}")
+                }
+                // return a null
+                null
+            }
+        }
     }
 
     /*
