@@ -4,7 +4,7 @@ this project is a folk from the [`WatchFaceKotlin`](https://github.com/android/w
 
 This project codes are updated and modified by the author of this project.
 
-## Changes Log
+## Changelog
 * Updated `Renderer.CanvasRenderer2` and deprecated `Renderer.CanvasRenderer`
 * Updated `Compose-Wear` lib to Version `1.0.0-rc02`
 * Added comments to enforce better understanding of source codes
