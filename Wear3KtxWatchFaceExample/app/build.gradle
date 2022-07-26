@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+}
+
+android {
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        applicationId rootProject.applicationId
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:$ktx_core_version"
+    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
+
+    // Material components
+    // Theme.MaterialComponents.DayNight
+    implementation "com.google.android.material:material:$material_version"
+}
