@@ -32,4 +32,5 @@ dependencies {
     // Material components
     // Theme.MaterialComponents.DayNight
     implementation "com.google.android.material:material:$material_version"
+    implementation 'androidx.wear.watchface:watchface:1.1.0'
 }

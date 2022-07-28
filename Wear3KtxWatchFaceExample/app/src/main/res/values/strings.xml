@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wear3KtxWatchFaceExample</string>
+
+    <string name="analog_watch_face_name" translatable="false">Wear Analog</string>
 </resources>

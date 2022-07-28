@@ -22,3 +22,9 @@ allow you to successfully install the watch face on the Wear device.
 face will not launch on its own like a regular app.
 
 
+## Drawable no-dpi resource
+* https://stackoverflow.com/questions/34156957/what-is-the-difference-between-anydpi-and-nodpi/34370735#34370735
+
+
+
+
