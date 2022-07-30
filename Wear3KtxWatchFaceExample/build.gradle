@@ -7,6 +7,7 @@ buildscript {
         play_services_wearable_version = "17.1.0"
 
         material_version = "1.6.1"
+        wear_watchface_version = "1.1.0"
 
         applicationId = "com.example.wear3ktxwatchfaceexample"
         compileSdk = 32

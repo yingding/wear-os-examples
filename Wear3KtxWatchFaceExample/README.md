@@ -27,6 +27,7 @@ face will not launch on its own like a regular app.
 
 # Reference:
 * Create WatchFace Service for Android Studio: https://developer.android.com/training/wearables/watch-faces/service#create-project
+* Change ComplicationDrawable Style: https://developer.android.com/reference/kotlin/androidx/wear/watchface/complications/rendering/ComplicationDrawable
 
 
 

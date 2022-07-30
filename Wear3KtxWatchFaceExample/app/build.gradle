@@ -32,5 +32,9 @@ dependencies {
     // Material components
     // Theme.MaterialComponents.DayNight
     implementation "com.google.android.material:material:$material_version"
-    implementation 'androidx.wear.watchface:watchface:1.1.0'
+
+    // WatchFace Service, Renderer.CanvasRenderer2
+    implementation "androidx.wear.watchface:watchface:$wear_watchface_version"
+    // Complication Style and ComplicationDrawable
+    implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
 }

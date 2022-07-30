@@ -6,4 +6,16 @@
 
     <!-- Name of watchface style [CHAR LIMIT=20] -->
     <string name="ambient_style_name">Ambient Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="red_style_name">Red Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="green_style_name">Green Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="blue_style_name">Blue Style</string>
+
+    <!-- Name of watchface style [CHAR LIMIT=20] -->
+    <string name="white_style_name">White Style</string>
 </resources>
