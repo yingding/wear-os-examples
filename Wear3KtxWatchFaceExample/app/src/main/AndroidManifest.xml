@@ -4,8 +4,6 @@
 
     <uses-feature android:name="android.hardware.type.watch" />
 
-
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -43,11 +41,11 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />
-
+            <!--
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
                 android:value="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
-
+            -->
             <meta-data
                 android:name="com.google.android.wearable.watchface.companionBuiltinConfigurationEnabled"
                 android:value="true" />
