@@ -29,6 +29,18 @@ face will not launch on its own like a regular app.
 * Create WatchFace Service for Android Studio: https://developer.android.com/training/wearables/watch-faces/service#create-project
 * Change ComplicationDrawable Style: https://developer.android.com/reference/kotlin/androidx/wear/watchface/complications/rendering/ComplicationDrawable
 
+## Kotlin Function, add Names to Call Arguments in Kotlin
+left click to highlight the function -> right mouse click -> Show context action -> Add names to call arguments
+
+or
+
+use ⌥ + Enter (macOS), or Alt+Enter (Windows/Linux) to open the "Show context action" -> Add names to call arguments
+
+Reference:
+* https://www.jetbrains.com/idea/guide/tips/adding-call-args/
+
+## Kotlin rem function
+get the modulo
 
 
 

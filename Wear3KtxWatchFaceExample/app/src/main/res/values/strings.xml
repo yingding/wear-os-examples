@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Wear3KtxWatchFaceExample</string>
+    <string name="app_name">Wear3Ktx WatchFace</string>
 
-    <string name="analog_watch_face_name" translatable="false">Wear Analog</string>
+    <string name="analog_watch_face_name" translatable="false">Wear3 Analog</string>
 
     <!-- Name of watchface style [CHAR LIMIT=20] -->
     <string name="ambient_style_name">Ambient Style</string>
