@@ -25,6 +25,9 @@ face will not launch on its own like a regular app.
 ## Drawable no-dpi resource
 * https://stackoverflow.com/questions/34156957/what-is-the-difference-between-anydpi-and-nodpi/34370735#34370735
 
+# Reference:
+* Create WatchFace Service for Android Studio: https://developer.android.com/training/wearables/watch-faces/service#create-project
+
 
 
 

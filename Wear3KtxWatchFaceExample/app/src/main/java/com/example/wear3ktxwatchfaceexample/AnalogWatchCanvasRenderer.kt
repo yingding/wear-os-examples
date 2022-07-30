@@ -7,8 +7,12 @@ import android.view.SurfaceHolder
 import androidx.wear.watchface.ComplicationSlotsManager
 import androidx.wear.watchface.RenderParameters
 import androidx.wear.watchface.Renderer
+import androidx.wear.watchface.WatchFace
 import androidx.wear.watchface.WatchState
 import androidx.wear.watchface.style.CurrentUserStyleRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import java.time.ZonedDateTime
 
 // Default for how long each frame is displayed at expected frame rate.
@@ -35,6 +39,11 @@ class AnalogWatchCanvasRenderer (
     interactiveDrawModeUpdateDelayMillis = FRAME_PERIOD_MS_DEFAULT,
     clearWithBackgroundTintBeforeRenderingHighlightLayer
 ) {
+    private val scope: CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
+    // private var watchFaceData: WatchFaceData = WatchFaceData()
+
     override suspend fun createSharedAssets(): SharedAssets {
         TODO("Not yet implemented")
     }
