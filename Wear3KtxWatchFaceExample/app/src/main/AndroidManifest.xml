@@ -45,7 +45,7 @@
                 android:resource="@drawable/watch_preview" />
             <meta-data
                 android:name="android.service.wallpaper"
-                android:resource="@xml/watch_face" />
+                android:resource="@xml/wear_watch_face" />
             <!--
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
