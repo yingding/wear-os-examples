@@ -179,14 +179,15 @@ class AnalogWatchCanvasRenderer (
         canvas.drawColor(backgroundColor)
 
         // CanvasComplicationDrawable already obeys rendererParameters
+        // Presumably, it will be draw on the WatchFaceLayer.COMPLICATION be the SlotsManager
         drawComplications(canvas, zonedDateTime)
 
-        // draws hour, minute and second arms
+        // draws hour, minute and second arms, in the WatchFaceLayer.COMPLICATIONS_OVERLAY
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
             drawClockHands(canvas, bounds, zonedDateTime)
         }
 
-        // Draw the Number pips on WatchFace
+        // Draw the Number pips on WatchFaceLayer.BASE
         if (renderParameters.drawMode == DrawMode.INTERACTIVE &&
             renderParameters.watchFaceLayers.contains(WatchFaceLayer.BASE) &&
             watchFaceData.drawHourPips
