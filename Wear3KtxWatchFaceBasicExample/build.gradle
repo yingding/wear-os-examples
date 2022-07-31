@@ -1,17 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
+        /* Android Kotlin Plugin version*/
         kotlin_version = '1.7.10'
-
+        /* libs */
         ktx_core_version = '1.8.0'
-        play_services_wearable_version = "17.1.0"
-
         material_version = "1.6.1"
         wear_watchface_version = "1.1.0"
-        androidx_wear_version = "1.2.0"
 
-        coroutine_version = "1.6.4"
-
+        /* app build */
         applicationId = "com.example.wear3ktxwatchfaceexample"
         compileSdk = 32
         minSdk = 26

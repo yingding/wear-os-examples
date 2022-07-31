@@ -3,16 +3,13 @@
     package="com.example.wear3ktxwatchfaceexample">
 
     <uses-feature android:name="android.hardware.type.watch" />
-
+    <!-- Wake Locks -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- WatchFace is a BACKGROUND -->
     <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
-    <!--
-    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    -->
-
+    <!-- Receive Complications -->
     <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
     <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA_PRIVILEGED" />
 
@@ -50,15 +47,6 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />
-            <!--
-            <meta-data
-                android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
-                android:value="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
-            <meta-data
-                android:name="com.google.android.wearable.watchface.companionBuiltinConfigurationEnabled"
-                android:value="true" />
-            -->
-
         </service>
     </application>
 </manifest>
