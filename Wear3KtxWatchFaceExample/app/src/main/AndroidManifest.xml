@@ -43,10 +43,10 @@
 
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview"
-                android:resource="@drawable/watch_preview" />
+                android:resource="@drawable/watch_preview_square_360" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview_circular"
-                android:resource="@drawable/watch_preview_circular" />
+                android:resource="@drawable/watch_preview_square_360" />
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />

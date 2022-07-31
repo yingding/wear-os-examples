@@ -40,7 +40,25 @@ Reference:
 * https://www.jetbrains.com/idea/guide/tips/adding-call-args/
 
 ## Kotlin rem function
-get the modulo
+get the modulo, do not use the mod function which is deprecated
+
+## Minimum Libs to create a watchface in AS Studio 4.x Kotlin
+The following libs are the minimum lib you might need to make a kotlin watchface in wear os 3 without WatchFace configuration
+```kotlin
+    def ktx_core_version = '1.8.0'
+    def material_version = "1.6.1"
+    def wear_watchface_version = "1.1.0"
+
+    // Ktx core
+    implementation "androidx.core:core-ktx:$ktx_core_version"
+    // Material components: Theme.MaterialComponents.DayNight
+    implementation "com.google.android.material:material:$material_version"
+    // WatchFace Service, Renderer.CanvasRenderer2
+    implementation "androidx.wear.watchface:watchface:$wear_watchface_version"
+    // Complication Style and ComplicationDrawable
+    implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
+```
+
 
 
 

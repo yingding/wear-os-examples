@@ -26,12 +26,9 @@ android {
 
 dependencies {
 
+    /* minimum watch face lib */
     implementation "androidx.core:core-ktx:$ktx_core_version"
-    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
-
-    // implementation "androidx.wear:wear:$androidx_wear_version"
-    // Material components
-    // Theme.MaterialComponents.DayNight
+    // Material components: Theme.MaterialComponents.DayNight
     implementation "com.google.android.material:material:$material_version"
 
     // WatchFace Service, Renderer.CanvasRenderer2
@@ -39,6 +36,8 @@ dependencies {
     // Complication Style and ComplicationDrawable
     implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
 
+//    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
+//    implementation "androidx.wear:wear:$androidx_wear_version"
 //    implementation "androidx.wear.watchface:watchface-client:$wear_watchface_version"
 //    implementation "androidx.wear.watchface:watchface-complications-data:$wear_watchface_version"
 //    implementation "androidx.wear.watchface:watchface-complications-data-source:$wear_watchface_version"
