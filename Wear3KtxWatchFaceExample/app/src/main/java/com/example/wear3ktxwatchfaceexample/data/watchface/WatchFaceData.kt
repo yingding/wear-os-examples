@@ -30,7 +30,7 @@ private const val GAP_BETWEEN_OUTER_CIRCLE_AND_BORDER_FRACTION = 0.03738f
 private const val GAP_BETWEEN_HAND_AND_CENTER_FRACTION =
     0.01869f + CENTER_CIRCLE_DIAMETER_FRACTION / 2.0f
 
-private const val NUMBER_RADIUS_FRACTION = 0.45f
+private const val NUMBER_RADIUS_FRACTION = 0.45f // 0 - 0.5f
 
 /**
  * Represents all data needed to render an analog watch face.
