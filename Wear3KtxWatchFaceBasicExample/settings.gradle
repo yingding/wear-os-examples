@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Wear3KtxWatchFaceExample"
+rootProject.name = "Wear3KtxWatchFaceBasicExample"
 include ':app'
