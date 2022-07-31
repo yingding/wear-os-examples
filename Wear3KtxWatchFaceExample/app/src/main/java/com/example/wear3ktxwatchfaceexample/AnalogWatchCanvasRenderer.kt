@@ -18,9 +18,14 @@ import androidx.wear.watchface.complications.rendering.CanvasComplicationDrawabl
 import androidx.wear.watchface.complications.rendering.ComplicationDrawable
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyle
+import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
+import com.example.wear3ktxwatchfaceexample.data.watchface.ColorStyleIdAndResourceIds
 import com.example.wear3ktxwatchfaceexample.data.watchface.WatchFaceColorPalette.Companion.convertToWatchFaceColorPalette
 import com.example.wear3ktxwatchfaceexample.data.watchface.WatchFaceData
+import com.example.wear3ktxwatchfaceexample.utils.COLOR_STYLE_SETTING
+import com.example.wear3ktxwatchfaceexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
+import com.example.wear3ktxwatchfaceexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -134,10 +139,50 @@ class AnalogWatchCanvasRenderer (
     private fun updateWatchFaceData(userStyle: UserStyle) {
         Log.d(TAG, "updateWatchFace(): $userStyle")
 
-        val newWatchFaceData: WatchFaceData = watchFaceData
+        var newWatchFaceData: WatchFaceData = watchFaceData
 
         // Loops through user style and applies new values to watchFaceData.
-        // TODO: do nothing
+        for (options in userStyle) {
+            when (options.key.id.toString()) {
+                COLOR_STYLE_SETTING -> {
+                    // cast the listOption to ListOption
+                    val listOption = options.value as
+                            UserStyleSetting.ListUserStyleSetting.ListOption
+
+                    newWatchFaceData = newWatchFaceData.copy(
+                        activeColorStyle = ColorStyleIdAndResourceIds.getColorStyleConfig(
+                            listOption.id.toString()
+                        )
+                    )
+                }
+                DRAW_HOUR_PIPS_STYLE_SETTING -> {
+                    val booleanValue = options.value as
+                            UserStyleSetting.BooleanUserStyleSetting.BooleanOption
+
+                    newWatchFaceData = newWatchFaceData.copy(
+                        drawHourPips = booleanValue.value
+                    )
+                }
+                WATCH_HAND_LENGTH_STYLE_SETTING -> {
+                    val doubleValue = options.value as
+                            UserStyleSetting.DoubleRangeUserStyleSetting.DoubleRangeOption
+
+                    // The arm lengths are usually only calculated the first time the watch face is
+                    // loaded to reduce the ops in the onDraw(). Because we updated the minute hand
+                    // watch length, we need to trigger a recalculation.
+                    armLengthChangedRecalculateClockHands = true
+
+                    // Updates length of minute hand based on edits from user.
+                    val newMinuteHandDimensions = newWatchFaceData.minuteHandDimensions.copy(
+                        lengthFraction = doubleValue.value.toFloat()
+                    )
+
+                    newWatchFaceData = newWatchFaceData.copy(
+                        minuteHandDimensions = newMinuteHandDimensions
+                    )
+                }
+            }
+        }
 
         // Only updates if something changed.
         if (watchFaceData != newWatchFaceData) {
