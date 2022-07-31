@@ -6,8 +6,12 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <!-- WatchFace is a BACKGROUND -->
     <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <!--
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    -->
 
     <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
     <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA_PRIVILEGED" />
@@ -42,10 +46,10 @@
                 android:resource="@drawable/watch_preview" />
             <meta-data
                 android:name="com.google.android.wearable.watchface.preview_circular"
-                android:resource="@drawable/watch_preview" />
+                android:resource="@drawable/watch_preview_circular" />
             <meta-data
                 android:name="android.service.wallpaper"
-                android:resource="@xml/wear_watch_face" />
+                android:resource="@xml/watch_face" />
             <!--
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"

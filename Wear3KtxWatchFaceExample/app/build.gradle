@@ -29,7 +29,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktx_core_version"
     implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
 
-    implementation "androidx.wear:wear:$androidx_wear_version"
+    // implementation "androidx.wear:wear:$androidx_wear_version"
     // Material components
     // Theme.MaterialComponents.DayNight
     implementation "com.google.android.material:material:$material_version"
