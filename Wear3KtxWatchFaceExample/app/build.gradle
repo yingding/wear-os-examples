@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
@@ -35,6 +34,8 @@ dependencies {
     implementation "androidx.wear.watchface:watchface:$wear_watchface_version"
     // Complication Style and ComplicationDrawable
     implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
+
+    /* extended version */
 
 //    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
 //    implementation "androidx.wear:wear:$androidx_wear_version"
