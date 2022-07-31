@@ -10,6 +10,8 @@ buildscript {
         wear_watchface_version = "1.1.0"
         androidx_wear_version = "1.2.0"
 
+        coroutine_version = "1.6.4"
+
         applicationId = "com.example.wear3ktxwatchfaceexample"
         compileSdk = 32
         minSdk = 26

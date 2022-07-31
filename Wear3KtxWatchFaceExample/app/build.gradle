@@ -44,6 +44,10 @@ dependencies {
 //    implementation "androidx.wear.watchface:watchface-complications-data-source:$wear_watchface_version"
 //    implementation "androidx.wear.watchface:watchface-data:$wear_watchface_version"
 //    implementation "androidx.wear.watchface:watchface-style:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-editor:$wear_watchface_version"
 
-    // implemenation "androidx.wear.watchface:watchface-editor:$wear_watchface_version"
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
+
+
 }
