@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk rootProject.compileSdk
+
+    defaultConfig {
+        applicationId rootProject.applicationId
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    /* minimum watch face lib */
+    implementation "androidx.core:core-ktx:$ktx_core_version"
+    // Material components: Theme.MaterialComponents.DayNight
+    implementation "com.google.android.material:material:$material_version"
+
+    // WatchFace Service, Renderer.CanvasRenderer2
+    implementation "androidx.wear.watchface:watchface:$wear_watchface_version"
+    // Complication Style and ComplicationDrawable
+    implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
+
+    /* extended version */
+
+//    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
+//    implementation "androidx.wear:wear:$androidx_wear_version"
+//    implementation "androidx.wear.watchface:watchface-client:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-complications-data:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-complications-data-source:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-data:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-style:$wear_watchface_version"
+//    implementation "androidx.wear.watchface:watchface-editor:$wear_watchface_version"
+
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
+//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version")
+
+
+}
