@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Wear3Ktx WatchFace</string>
 
-    <string name="analog_watch_face_name" translatable="false">Custom Analog</string>
+    <string name="analog_watch_face_name" translatable="false">My Basic Analog</string>
 
     <!-- Name of watchface style [CHAR LIMIT=20] -->
     <string name="ambient_style_name">Ambient Style</string>
