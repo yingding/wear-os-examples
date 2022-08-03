@@ -50,16 +50,20 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />
-            <!-- set the value of Configuration Action -->
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
                 android:value="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
-            <!--
             <meta-data
                 android:name="com.google.android.wearable.watchface.companionBuiltinConfigurationEnabled"
                 android:value="true" />
-                -->
         </service>
+        <!-- set the value of Configuration Action
+            The value seems must be
+            "androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR"
+            if you use something like the following the watchface will not be shown in the picker
+            "com.example.watchfaceconfigexample.editor.action.WATCH_FACE_EDITOR"
+        -->
+
         <!-- use WearCompose Theme to render wear compose -->
         <activity
             android:name=".editor.WatchFaceConfigActivity"
