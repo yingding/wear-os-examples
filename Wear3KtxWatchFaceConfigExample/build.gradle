@@ -12,8 +12,8 @@ buildscript {
         activity_version = "1.5.1"
 
         coroutine_version = "1.6.4"
-
-        applicationId = "com.example.wear3ktxwatchfaceexample"
+        // use a different application id for different watch faces
+        applicationId = "com.example.watchfaceconfigexample"
         compileSdk = 32
         minSdk = 26
         targetSdk = 32
