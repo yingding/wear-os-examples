@@ -1,4 +1,4 @@
-package com.example.configwatchfaceexample.editor
+package com.example.watchfaceconfigexample.editor
 
 import androidx.activity.ComponentActivity
 

@@ -1,4 +1,4 @@
-package com.example.configwatchfaceexample.data.watchface
+package com.example.watchfaceconfigexample.data.watchface
 
 import android.content.Context
 import androidx.annotation.DrawableRes

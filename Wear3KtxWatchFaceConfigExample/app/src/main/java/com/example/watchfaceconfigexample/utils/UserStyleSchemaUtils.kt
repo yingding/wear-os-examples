@@ -1,15 +1,15 @@
-package com.example.configwatchfaceexample.utils
+package com.example.watchfaceconfigexample.utils
 
 import android.content.Context
 import androidx.wear.watchface.style.UserStyleSchema
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
-import com.example.configwatchfaceexample.R
-import com.example.configwatchfaceexample.data.watchface.ColorStyleIdAndResourceIds
-import com.example.configwatchfaceexample.data.watchface.DRAW_HOUR_PIPS_DEFAULT
-import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_DEFAULT
-import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MAXIMUM
-import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MINIMUM
+import com.example.watchfaceconfigexample.R
+import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
+import com.example.watchfaceconfigexample.data.watchface.DRAW_HOUR_PIPS_DEFAULT
+import com.example.watchfaceconfigexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_DEFAULT
+import com.example.watchfaceconfigexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MAXIMUM
+import com.example.watchfaceconfigexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MINIMUM
 
 /* Keys to matched content in the  the user style settings. We listen for changes to these
  * values in the renderer and if new, we will update the database and update the watch face

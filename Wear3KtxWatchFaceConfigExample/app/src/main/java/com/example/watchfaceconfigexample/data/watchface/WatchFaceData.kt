@@ -1,4 +1,4 @@
-package com.example.configwatchfaceexample.data.watchface
+package com.example.watchfaceconfigexample.data.watchface
 
 // Defaults for the watch face. All private values aren't editable by the user, so they don't need
 // to be exposed as settings defaults.

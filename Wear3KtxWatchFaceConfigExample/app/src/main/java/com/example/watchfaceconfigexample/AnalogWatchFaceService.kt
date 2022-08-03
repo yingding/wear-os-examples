@@ -1,4 +1,4 @@
-package com.example.configwatchfaceexample
+package com.example.watchfaceconfigexample
 
 import android.util.Log
 import android.view.SurfaceHolder
@@ -10,8 +10,8 @@ import androidx.wear.watchface.WatchFaceType
 import androidx.wear.watchface.WatchState
 import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyleSchema
-import com.example.configwatchfaceexample.utils.createComplicationSlotsManagerHelper
-import com.example.configwatchfaceexample.utils.createUserStyleSchemaHelper
+import com.example.watchfaceconfigexample.utils.createComplicationSlotsManagerHelper
+import com.example.watchfaceconfigexample.utils.createUserStyleSchemaHelper
 
 /**
  * Handles much of the boilerplate needed to implement a watch face (minus rendering code; see
