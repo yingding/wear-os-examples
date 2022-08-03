@@ -9,6 +9,7 @@ buildscript {
         material_version = "1.6.1"
         wear_watchface_version = "1.1.0"
         androidx_wear_version = "1.2.0"
+        activity_version = "1.5.1"
 
         coroutine_version = "1.6.4"
 

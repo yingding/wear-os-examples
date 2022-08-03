@@ -38,6 +38,8 @@ dependencies {
     /* extended version */
     // WatchFace Style Editor
     implementation "androidx.wear.watchface:watchface-editor:$wear_watchface_version"
+    // Component Activity
+    implementation "androidx.activity:activity-ktx:$activity_version"
 
 //    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
 //    implementation "androidx.wear:wear:$androidx_wear_version"
