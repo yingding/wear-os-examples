@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.editor
+package com.example.configwatchfaceexample.editor
 
 import androidx.activity.ComponentActivity
 

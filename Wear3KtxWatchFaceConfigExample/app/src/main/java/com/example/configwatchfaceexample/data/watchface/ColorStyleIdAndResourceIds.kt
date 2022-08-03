@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.data.watchface
+package com.example.configwatchfaceexample.data.watchface
 
 import android.content.Context
 import android.graphics.drawable.Icon
@@ -6,9 +6,8 @@ import android.util.Log
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.wear.watchface.DrawMode
 import androidx.wear.watchface.style.UserStyleSetting
-import com.example.wear3ktxwatchfaceexample.R
+import com.example.configwatchfaceexample.R
 
 // Defaults for all styles.
 // X_COLOR_STYLE_ID - id in watch face database for each style id.

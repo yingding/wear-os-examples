@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.data.watchface
+package com.example.configwatchfaceexample.data.watchface
 
 data class ArmDimensions (
     val lengthFraction: Float,

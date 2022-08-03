@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.utils
+package com.example.configwatchfaceexample.utils
 
 import android.content.Context
 import android.graphics.RectF
@@ -12,7 +12,7 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.rendering.CanvasComplicationDrawable
 import androidx.wear.watchface.complications.rendering.ComplicationDrawable
 import androidx.wear.watchface.style.CurrentUserStyleRepository
-import com.example.wear3ktxwatchfaceexample.R
+import com.example.configwatchfaceexample.R
 
 // Information needed for complications.
 // Creates bounds for the locations of both right and left complications. (This is the

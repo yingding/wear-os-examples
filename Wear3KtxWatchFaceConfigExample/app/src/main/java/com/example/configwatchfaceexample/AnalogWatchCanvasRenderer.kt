@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample
+package com.example.configwatchfaceexample
 
 import android.content.Context
 import android.graphics.Canvas
@@ -20,12 +20,12 @@ import androidx.wear.watchface.style.CurrentUserStyleRepository
 import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
-import com.example.wear3ktxwatchfaceexample.data.watchface.ColorStyleIdAndResourceIds
-import com.example.wear3ktxwatchfaceexample.data.watchface.WatchFaceColorPalette.Companion.convertToWatchFaceColorPalette
-import com.example.wear3ktxwatchfaceexample.data.watchface.WatchFaceData
-import com.example.wear3ktxwatchfaceexample.utils.COLOR_STYLE_SETTING
-import com.example.wear3ktxwatchfaceexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
-import com.example.wear3ktxwatchfaceexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
+import com.example.configwatchfaceexample.data.watchface.ColorStyleIdAndResourceIds
+import com.example.configwatchfaceexample.data.watchface.WatchFaceColorPalette.Companion.convertToWatchFaceColorPalette
+import com.example.configwatchfaceexample.data.watchface.WatchFaceData
+import com.example.configwatchfaceexample.utils.COLOR_STYLE_SETTING
+import com.example.configwatchfaceexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
+import com.example.configwatchfaceexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

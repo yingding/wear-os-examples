@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.data.watchface
+package com.example.configwatchfaceexample.data.watchface
 
 // Defaults for the watch face. All private values aren't editable by the user, so they don't need
 // to be exposed as settings defaults.

@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.editor
+package com.example.configwatchfaceexample.editor
 
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -12,12 +12,12 @@ import androidx.wear.watchface.style.UserStyle
 import androidx.wear.watchface.style.UserStyleSchema
 import androidx.wear.watchface.style.UserStyleSetting
 import androidx.wear.watchface.style.WatchFaceLayer
-import com.example.wear3ktxwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_DEFAULT
-import com.example.wear3ktxwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MAXIMUM
-import com.example.wear3ktxwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MINIMUM
-import com.example.wear3ktxwatchfaceexample.utils.COLOR_STYLE_SETTING
-import com.example.wear3ktxwatchfaceexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
-import com.example.wear3ktxwatchfaceexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
+import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_DEFAULT
+import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MAXIMUM
+import com.example.configwatchfaceexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MINIMUM
+import com.example.configwatchfaceexample.utils.COLOR_STYLE_SETTING
+import com.example.configwatchfaceexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
+import com.example.configwatchfaceexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted

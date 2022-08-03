@@ -1,4 +1,4 @@
-package com.example.wear3ktxwatchfaceexample.data.watchface
+package com.example.configwatchfaceexample.data.watchface
 
 import android.content.Context
 import androidx.annotation.DrawableRes

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wear3ktxwatchfaceexample">
+    package="com.example.configwatchfaceexample">
 
     <uses-feature android:name="android.hardware.type.watch" />
 
@@ -31,7 +31,7 @@
             android:value="true" />
 
         <service
-            android:name=".AnalogWatchFaceService"
+            android:name="com.example.configwatchfaceexample.AnalogWatchFaceService"
             android:directBootAware="true"
             android:exported="true"
             android:label="@string/analog_watch_face_name"
