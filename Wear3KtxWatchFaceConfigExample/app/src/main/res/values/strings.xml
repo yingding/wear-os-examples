@@ -41,4 +41,9 @@
     watch hands -->
     <string name="watchface_hand_length_setting_description">Scale of watch hand</string>
 
+
+    <!-- Values for WatchFaceConfigActivity -->
+    <!-- Title for config activity for watch face (settings). -->
+    <string name="title_activity_watch_face_config">Configuration</string>
+
 </resources>

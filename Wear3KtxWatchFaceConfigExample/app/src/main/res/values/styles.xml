@@ -24,4 +24,6 @@
     <style name="Widget.WatchFace.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/color_primary_button</item>
     </style>
+    <!-- Activity Theme used for Wear Compose, which need Theme.DeviceDefault -->
+    <style name="Theme.WearCompose" parent="@android:style/Theme.DeviceDefault"/>
 </resources>

@@ -21,6 +21,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    /* compose buildFeatures and composeOptions */
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
+    }
 }
 
 dependencies {
@@ -38,8 +46,21 @@ dependencies {
     /* extended version */
     // WatchFace Style Editor
     implementation "androidx.wear.watchface:watchface-editor:$wear_watchface_version"
-    // Component Activity
-    implementation "androidx.activity:activity-ktx:$activity_version"
+
+    /* Compose Dependencies */
+    // General Compose dependencies
+    // it also added dependencies of activity-ktx, activity-compose
+    implementation "androidx.activity:activity-compose:$activity_compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    // compiler
+    implementation "androidx.compose.compiler:compiler:$compose_compiler_version"
+    // Compose for Wear OS Dependencies
+    implementation "androidx.wear.compose:compose-material:$wear_compose_version"
+    // Foundation is additive, so you can use the mobile version in your Wear OS app.
+    implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
+
 
 //    implementation "com.google.android.gms:play-services-wearable:$play_services_wearable_version"
 //    implementation "androidx.wear:wear:$androidx_wear_version"

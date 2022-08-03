@@ -50,15 +50,27 @@
             <meta-data
                 android:name="android.service.wallpaper"
                 android:resource="@xml/watch_face" />
-            <!--
+            <!-- set the value of Configuration Action -->
             <meta-data
                 android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
                 android:value="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
+            <!--
             <meta-data
                 android:name="com.google.android.wearable.watchface.companionBuiltinConfigurationEnabled"
                 android:value="true" />
-            -->
-
+                -->
         </service>
+        <!-- use WearCompose Theme to render wear compose -->
+        <activity
+            android:name=".editor.WatchFaceConfigActivity"
+            android:exported="true"
+            android:label="@string/title_activity_watch_face_config"
+            android:theme="@style/Theme.WearCompose">
+            <intent-filter>
+                <action android:name="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
+                <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
