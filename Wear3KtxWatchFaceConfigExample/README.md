@@ -59,6 +59,10 @@ The following libs are the minimum lib you might need to make a kotlin watchface
     implementation "androidx.wear.watchface:watchface-complications-rendering:$wear_watchface_version"
 ```
 
+## Issue
+### The new watchface doesn't shown in the WatchFace picker
+Make sure the applicationId of your new watch face is different than all the available watchfaces in your module build.gradle file.
+
 
 
 
