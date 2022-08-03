@@ -17,14 +17,13 @@
 buildscript {
     ext {
         // Dependency versions.
-        activity_compose_version = '1.4.0'
-        // compose_version = '1.1.1' // still need kotlin 1.6.0 which is defined by AGP version
-        compose_version = '1.2.0-rc03' // '1.2.0-beta03'
-        compose_compiler_version = '1.2.0' // works with kotlin 1.7.0
+        activity_compose_version = '1.5.1'
+        compose_version = '1.2.0'
+        compose_compiler_version = '1.3.0-rc02' // 1.3.0-rc02 added support for kotlin gradle plugin 1.7.10
         // compose to kotlin compatibility mapper https://developer.android.com/jetpack/androidx/releases/compose-kotlin
         // https://developer.android.com/jetpack/androidx/releases/compose-compiler#1.1.0-rc02
         lifecycle_version = '2.4.0'
-        wear_compose_version = '1.0.0-rc02' // '1.0.0-beta03'
+        wear_compose_version = '1.0.0' // '1.0.0-beta03'
 
         junit_version = '4.13.2'
         androidx_test_ext_junit_version = '1.1.3'
@@ -34,14 +33,10 @@ buildscript {
         compileSdk = 32
         targetSdk = 30
 
-        // name_space = "com.example.android.wearable.composeforwearos"
         applicationId = "com.example.android.wearable.composeforwearos"
 
-        // compose_version = '1.2.0-SNAPSHOT'
-        // compose_compiler_version = '1.2.0-SNAPSHOT'
-        // wear_compose_version = '1.0.0-SNAPSHOT'
-        // lifecycle_version = '2.5.0-SNAPSHOT'
-        // activity_compose_version = '1.5.0-SNAPSHOT'
+        /* plugins */
+        spotless_version = "6.9.0"
     }
 
     repositories {
@@ -50,9 +45,9 @@ buildscript {
         // maven { url 'https://androidx.dev/snapshots/builds/8036295/artifacts/repository' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.2.2' // gradle 7.2.2 version works with KGP 1.7.10
         // compose still requires 1.6.20
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0" // 1.6.21
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10" //
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -60,7 +55,7 @@ buildscript {
 }
 
 plugins {
-    id 'com.diffplug.spotless' version '6.6.1' // '6.4.2' // '5.14.2'
+    id 'com.diffplug.spotless' version "$spotless_version" // '6.6.1'
 }
 
 subprojects {
