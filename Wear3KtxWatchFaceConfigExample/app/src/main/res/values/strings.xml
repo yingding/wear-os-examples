@@ -46,4 +46,7 @@
     <!-- Title for config activity for watch face (settings). -->
     <string name="title_activity_watch_face_config">Configuration</string>
 
+    <!-- Content Descriptions -->
+    <string name="activity_config_screenshot_content_description">Screenshot of Watch Face</string>
+
 </resources>
