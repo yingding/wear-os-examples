@@ -38,7 +38,7 @@ import kotlinx.coroutines.launch
  */
 class WatchFaceConfigActivity : ComponentActivity() {
 
-    /* can not use by late, it must be called in int onCreate
+    /* can not use by late, it must be called in onCreate
      * otherwise you will get an error "LifecycleOwners must call register before they are STARTED"
      * https://stackoverflow.com/questions/64476827/how-to-resolve-the-error-lifecycleowners-must-call-register-before-they-are-sta/67582633#67582633
      */
@@ -101,7 +101,7 @@ fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStyl
 }
 
 @Composable
-fun WatchfaceImage(modifier: Modifier=Modifier, bitmap: Bitmap) {
+fun WatchfaceImage(bitmap: Bitmap) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Image(
             bitmap = bitmap.asImageBitmap(),
@@ -111,8 +111,7 @@ fun WatchfaceImage(modifier: Modifier=Modifier, bitmap: Bitmap) {
     }
 }
 
-
-@Composable
+/*@Composable
 fun HelloWorld() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(text = "Hello World!")
@@ -129,5 +128,5 @@ private fun HelloWorldPreview() {
     WearAppTheme {
         HelloWorld()
     }
-}
+}*/
 
