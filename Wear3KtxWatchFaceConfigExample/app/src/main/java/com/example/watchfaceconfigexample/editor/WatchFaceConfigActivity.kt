@@ -112,7 +112,6 @@ fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStyl
         userStylesAndPreview?.let {
             WatchFaceConfigContent(listState, it)
         }
-        // HelloWorld()
     }
 }
 
@@ -122,7 +121,6 @@ fun WatchFaceConfigContent(
     userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview
 ) {
     Scaffold (
-        // timeText = { TimeText() },
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
         positionIndicator = { PositionIndicator(scalingLazyListState = state) }
     ) {
@@ -132,17 +130,14 @@ fun WatchFaceConfigContent(
             state = state,
             anchorType = ScalingLazyListAnchorType.ItemCenter,
             autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 30)
-        // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
+            // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
         ) {
             item {
                 WatchfaceImage(userStylesAndPreview.previewImage)
             }
             item {
-                Text(text = "hello world")
+               HelloWorld()
             }
-//            item {
-//                HelloWorld()
-//            }
         }
     }
 }
