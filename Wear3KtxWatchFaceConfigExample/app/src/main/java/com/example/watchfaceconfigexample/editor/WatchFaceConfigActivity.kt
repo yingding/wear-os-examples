@@ -7,8 +7,11 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +25,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import androidx.wear.compose.material.AutoCenteringParams
+import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListAnchorType
+import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.watchfaceconfigexample.R
 import com.example.watchfaceconfigexample.theme.WearAppTheme
 import kotlinx.coroutines.Dispatchers
@@ -54,8 +67,8 @@ class WatchFaceConfigActivity : ComponentActivity() {
             )
 
         setContent{
-            var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?
-                by remember { mutableStateOf(null)}
+            var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
+            WatchfaceConfigApp(userStylesAndPreview)
 
             // To trigger the side-effect only once during the lifecycle of this composable,
             // use a constant as a key
@@ -80,7 +93,6 @@ class WatchFaceConfigActivity : ComponentActivity() {
                 }
             }
 
-            WatchfaceConfigApp(userStylesAndPreview)
         }
     }
 
@@ -93,10 +105,45 @@ class WatchFaceConfigActivity : ComponentActivity() {
 @Composable
 fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?) {
     WearAppTheme {
+        val listState: ScalingLazyListState = rememberScalingLazyListState(
+            initialCenterItemIndex = 0,
+            initialCenterItemScrollOffset = 30
+        )
         userStylesAndPreview?.let {
-            WatchfaceImage(bitmap = userStylesAndPreview.previewImage)
+            WatchFaceConfigContent(listState, it)
         }
         // HelloWorld()
+    }
+}
+
+@Composable
+fun WatchFaceConfigContent(
+    state: ScalingLazyListState,
+    userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview
+) {
+    Scaffold (
+        // timeText = { TimeText() },
+        vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
+        positionIndicator = { PositionIndicator(scalingLazyListState = state) }
+    ) {
+        ScalingLazyColumn (
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            state = state,
+            anchorType = ScalingLazyListAnchorType.ItemCenter,
+            autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 30)
+        // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
+        ) {
+            item {
+                WatchfaceImage(userStylesAndPreview.previewImage)
+            }
+            item {
+                Text(text = "hello world")
+            }
+//            item {
+//                HelloWorld()
+//            }
+        }
     }
 }
 
@@ -111,7 +158,8 @@ fun WatchfaceImage(bitmap: Bitmap) {
     }
 }
 
-/*@Composable
+
+@Composable
 fun HelloWorld() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Text(text = "Hello World!")
@@ -128,5 +176,5 @@ private fun HelloWorldPreview() {
     WearAppTheme {
         HelloWorld()
     }
-}*/
+}
 
