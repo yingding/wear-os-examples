@@ -10,7 +10,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +26,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.PositionIndicator
@@ -105,10 +108,12 @@ class WatchFaceConfigActivity : ComponentActivity() {
 @Composable
 fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?) {
     WearAppTheme {
-        val listState: ScalingLazyListState = rememberScalingLazyListState(
-            initialCenterItemIndex = 0,
-            initialCenterItemScrollOffset = 30
-        )
+//        val listState: ScalingLazyListState = rememberScalingLazyListState(
+//            initialCenterItemIndex = 0,
+//            initialCenterItemScrollOffset = 30
+//        )
+        val listState: ScalingLazyListState = rememberScalingLazyListState()
+
         userStylesAndPreview?.let {
             WatchFaceConfigContent(listState, it)
         }
@@ -129,7 +134,7 @@ fun WatchFaceConfigContent(
             verticalArrangement = Arrangement.Center,
             state = state,
             anchorType = ScalingLazyListAnchorType.ItemCenter,
-            autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 30)
+            // autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 30)
             // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
         ) {
             item {
@@ -137,6 +142,9 @@ fun WatchFaceConfigContent(
             }
             item {
                HelloWorld()
+            }
+            item {
+                Spacer(modifier = Modifier.height(0.dp))
             }
         }
     }
