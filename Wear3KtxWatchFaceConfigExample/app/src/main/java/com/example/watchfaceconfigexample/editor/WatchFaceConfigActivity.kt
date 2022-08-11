@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -23,12 +24,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.AutoCenteringParams
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.ScalingLazyColumn
@@ -40,6 +46,7 @@ import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.watchfaceconfigexample.R
+import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
 import com.example.watchfaceconfigexample.theme.WearAppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,11 +78,15 @@ class WatchFaceConfigActivity : ComponentActivity() {
 
         setContent{
             var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
-            WatchfaceConfigApp(userStylesAndPreview)
+            WatchfaceConfigApp(
+                userStylesAndPreview,
+                ::onClickColorStylePickerButton
+            )
 
             // To trigger the side-effect only once during the lifecycle of this composable,
             // use a constant as a key
-            LaunchedEffect(true) {
+            // or every time when stateHolder changes
+            LaunchedEffect(stateHolder.uiState) {
                 lifecycleScope.launch(Dispatchers.Main.immediate) {
                     stateHolder.uiState
                         .collect { uiState: WatchFaceConfigStateHolder.EditWatchFaceUiState ->
@@ -99,6 +110,18 @@ class WatchFaceConfigActivity : ComponentActivity() {
         }
     }
 
+    fun onClickColorStylePickerButton() {
+        Log.d(TAG, "onClickColorStylePickerButton()")
+
+        // TODO (codingjeremy): Replace with a RecyclerView to choose color style (next CL)
+        // Selects a random color style from list.
+        val colorStyleIdAndResourceIdsList = enumValues<ColorStyleIdAndResourceIds>()
+        val newColorStyle: ColorStyleIdAndResourceIds = colorStyleIdAndResourceIdsList.random()
+        Log.d(TAG, "onClickColorStylePickerButton() set ${newColorStyle.id}")
+
+        stateHolder.setColorStyle(newColorStyle.id)
+    }
+
     companion object {
         const val TAG = "WatchFaceConfigActivity"
     }
@@ -106,14 +129,22 @@ class WatchFaceConfigActivity : ComponentActivity() {
 
 
 @Composable
-fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?) {
+fun WatchfaceConfigApp(
+    userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
+    onStyleClick: () -> Unit,
+) {
     WearAppTheme {
         // show the first element with autoCenter up of 30
         val stateInit by remember { mutableStateOf(StateInit(0, 30)) }
         val state: ScalingLazyListState = rememberScalingLazyListState(stateInit.index, stateInit.offSet)
 
         userStylesAndPreview?.let {
-            WatchFaceConfigContent(stateInit, state, it)
+            WatchFaceConfigContent(
+                stateInit = stateInit,
+                state = state,
+                userStylesAndPreview = it,
+                onStyleClick = onStyleClick
+            )
         }
     }
 }
@@ -124,7 +155,8 @@ data class StateInit(val index: Int, val offSet: Int)
 fun WatchFaceConfigContent(
     stateInit: StateInit,
     state: ScalingLazyListState,
-    userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview
+    userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview,
+    onStyleClick: () -> Unit,
 ) {
     Scaffold (
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
@@ -142,7 +174,7 @@ fun WatchFaceConfigContent(
                 WatchfaceImage(userStylesAndPreview.previewImage)
             }
             item {
-               HelloWorld()
+               StyleClip(onClick = onStyleClick)
             }
             /* Workaround to issue: https://issuetracker.google.com/issues/241545939
              * Fixed in wear compose-material 1.0.1
@@ -163,6 +195,32 @@ fun WatchfaceImage(bitmap: Bitmap) {
             modifier = Modifier.fillMaxSize()
         )
     }
+}
+
+@Composable
+fun StyleClip(
+    modifier: Modifier = Modifier,
+    iconModifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Chip(
+        modifier = modifier,
+        onClick = onClick,
+        label = {
+            Text(
+                text = stringResource(R.string.activity_config_color_style_picker_label),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+        },
+        icon = {
+            Icon(
+                painter = painterResource(R.drawable.color_style_icon),
+                contentDescription = stringResource(R.string.activity_config_change_color_style_button_content_description),
+                modifier = iconModifier
+            )
+        }
+    )
 }
 
 

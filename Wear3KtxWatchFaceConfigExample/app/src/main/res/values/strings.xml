@@ -49,4 +49,9 @@
     <!-- Content Descriptions -->
     <string name="activity_config_screenshot_content_description">Screenshot of Watch Face</string>
 
+    <!-- Values for WatchFaceConfigActivity -->
+    <!-- title -->
+    <string name="activity_config_color_style_picker_label">Color Style</string>
+    <!-- description -->
+    <string name="activity_config_change_color_style_button_content_description">Button to change the color style of the watch face.</string>
 </resources>

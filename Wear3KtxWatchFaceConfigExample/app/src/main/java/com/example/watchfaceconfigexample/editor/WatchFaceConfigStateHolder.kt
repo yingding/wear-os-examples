@@ -183,7 +183,28 @@ class WatchFaceConfigStateHolder (
     /* TODO: Useful function */
     fun setComplication(complicationLocation: Int) = Unit
 
-    fun setColorStyle(newColorStyleId: String) = Unit
+    // TODO: read through the code
+    fun setColorStyle(newColorStyleId: String) {
+        val userStyleSettingList = editorSession.userStyleSchema.userStyleSettings
+
+        // Loops over all UserStyleSettings (basically the keys in the map) to find the setting for
+        // the color style (which contains all the possible options for that style setting).
+        for (userStyleSetting in userStyleSettingList) {
+            if (userStyleSetting.id == UserStyleSetting.Id(COLOR_STYLE_SETTING)) {
+                val colorUserStyleSetting =
+                    userStyleSetting as UserStyleSetting.ListUserStyleSetting
+
+                // Loops over the UserStyleSetting.Option colors (all possible values for the key)
+                // to find the matching option, and if it exists, sets it as the color style.
+                for (colorOptions in colorUserStyleSetting.options) {
+                    if (colorOptions.id.toString() == newColorStyleId) {
+                        setUserStyleOption(colorStyleKey, colorOptions)
+                        return
+                    }
+                }
+            }
+        }
+    }
 
     fun setDrawPips(enabled: Boolean) = Unit
 
