@@ -108,20 +108,21 @@ class WatchFaceConfigActivity : ComponentActivity() {
 @Composable
 fun WatchfaceConfigApp(userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?) {
     WearAppTheme {
-//        val listState: ScalingLazyListState = rememberScalingLazyListState(
-//            initialCenterItemIndex = 0,
-//            initialCenterItemScrollOffset = 30
-//        )
-        val listState: ScalingLazyListState = rememberScalingLazyListState()
+        // show the first element with autoCenter up of 30
+        val stateInit by remember { mutableStateOf(StateInit(0, 30)) }
+        val state: ScalingLazyListState = rememberScalingLazyListState(stateInit.index, stateInit.offSet)
 
         userStylesAndPreview?.let {
-            WatchFaceConfigContent(listState, it)
+            WatchFaceConfigContent(stateInit, state, it)
         }
     }
 }
 
+data class StateInit(val index: Int, val offSet: Int)
+
 @Composable
 fun WatchFaceConfigContent(
+    stateInit: StateInit,
     state: ScalingLazyListState,
     userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview
 ) {
@@ -134,7 +135,7 @@ fun WatchFaceConfigContent(
             verticalArrangement = Arrangement.Center,
             state = state,
             anchorType = ScalingLazyListAnchorType.ItemCenter,
-            // autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 30)
+            autoCentering = AutoCenteringParams(itemIndex = stateInit.index, itemOffset = stateInit.offSet)
             // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
         ) {
             item {
@@ -143,6 +144,9 @@ fun WatchFaceConfigContent(
             item {
                HelloWorld()
             }
+            /* Workaround to issue: https://issuetracker.google.com/issues/241545939
+             * Fixed in wear compose-material 1.0.1
+             */
             item {
                 Spacer(modifier = Modifier.height(0.dp))
             }
