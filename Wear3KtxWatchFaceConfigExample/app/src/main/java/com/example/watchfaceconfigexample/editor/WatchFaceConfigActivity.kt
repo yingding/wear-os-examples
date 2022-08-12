@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -77,35 +78,38 @@ class WatchFaceConfigActivity : ComponentActivity() {
             )
 
         setContent{
-            var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
+            // var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
+
+            val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
+
             WatchfaceConfigApp(
-                userStylesAndPreview,
+                editWatchFaceUniState,
                 ::onClickColorStylePickerButton
             )
 
             // To trigger the side-effect only once during the lifecycle of this composable,
             // use a constant as a key
             // or every time when stateHolder changes
-            LaunchedEffect(stateHolder.uiState) {
-                lifecycleScope.launch(Dispatchers.Main.immediate) {
-                    stateHolder.uiState
-                        .collect { uiState: WatchFaceConfigStateHolder.EditWatchFaceUiState ->
-                            when (uiState) {
-                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Loading -> {
-                                    Log.d(TAG, "StateFlow Loading: ${uiState.message}")
-                                }
-                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success -> {
-                                    Log.d(TAG, "StateFlow Success.")
-                                    userStylesAndPreview = uiState.userStylesAndPreview
-                                    // updateWatchFacePreview(uiState.userStylesAndPreview)
-                                }
-                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Error -> {
-                                    Log.e(TAG, "Flow error: ${uiState.exception}")
-                                }
-                            }
-                        }
-                }
-            }
+//            LaunchedEffect(editWatchFaceUniState) {
+//                lifecycleScope.launch(Dispatchers.Main.immediate) {
+//                    stateHolder.uiState
+//                        .collect { uiState: WatchFaceConfigStateHolder.EditWatchFaceUiState ->
+//                            when (uiState) {
+//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Loading -> {
+//                                    Log.d(TAG, "StateFlow Loading: ${uiState.message}")
+//                                }
+//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success -> {
+//                                    Log.d(TAG, "StateFlow Success.")
+//                                    userStylesAndPreview = uiState.userStylesAndPreview
+//                                    // updateWatchFacePreview(uiState.userStylesAndPreview)
+//                                }
+//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Error -> {
+//                                    Log.e(TAG, "Flow error: ${uiState.exception}")
+//                                }
+//                            }
+//                        }
+//                }
+//            }
 
         }
     }
@@ -130,7 +134,8 @@ class WatchFaceConfigActivity : ComponentActivity() {
 
 @Composable
 fun WatchfaceConfigApp(
-    userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
+    editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState,
+    // userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
     onStyleClick: () -> Unit,
 ) {
     WearAppTheme {
@@ -138,14 +143,22 @@ fun WatchfaceConfigApp(
         val stateInit by remember { mutableStateOf(StateInit(0, 30)) }
         val state: ScalingLazyListState = rememberScalingLazyListState(stateInit.index, stateInit.offSet)
 
-        userStylesAndPreview?.let {
+        if (editWatchFaceUniState is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success) {
             WatchFaceConfigContent(
                 stateInit = stateInit,
                 state = state,
-                userStylesAndPreview = it,
+                userStylesAndPreview = editWatchFaceUniState.userStylesAndPreview,
                 onStyleClick = onStyleClick
             )
         }
+//        userStylesAndPreview?.let {
+//            WatchFaceConfigContent(
+//                stateInit = stateInit,
+//                state = state,
+//                userStylesAndPreview = it,
+//                onStyleClick = onStyleClick
+//            )
+//        }
     }
 }
 

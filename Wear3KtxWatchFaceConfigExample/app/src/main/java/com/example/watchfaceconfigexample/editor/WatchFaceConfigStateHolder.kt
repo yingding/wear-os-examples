@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.yield
 
@@ -50,7 +51,7 @@ class WatchFaceConfigStateHolder (
     private val scope: CoroutineScope,
     private val activity: ComponentActivity
 ) {
-    private lateinit var editorSession: EditorSession
+    lateinit var editorSession: EditorSession
 
     // Keys from Watch Face Data Structure
     private lateinit var colorStyleKey: UserStyleSetting.ListUserStyleSetting
@@ -211,9 +212,29 @@ class WatchFaceConfigStateHolder (
     fun setMinuteHandArmLength(newLengthRatio: Float) = Unit
 
 
+    // Saves User Style Option change back to the back to the EditorSession.
+    // Note: The UI widgets in the Activity that can trigger this method (through the 'set' methods)
+    // will only be enabled after the EditorSession has been initialized.
     private fun setUserStyleOption(
         userStyleSetting: UserStyleSetting,
         userStyleOption: UserStyleSetting.Option
-    ) = Unit
+    ) {
+        Log.d(TAG, "setUserStyleOption()")
+        Log.d(TAG, "\tuserStyleSetting: $userStyleSetting")
+        Log.d(TAG, "\tuserStyleOption: $userStyleOption")
+
+        // TODO: As of watchface 1.0.0-beta01 We can't use MutableStateFlow.compareAndSet, or
+        //       anything that calls through to that (like MutableStateFlow.update) because
+        //       MutableStateFlow.compareAndSet won't properly update the user style.
+        val mutableUserStyle = editorSession.userStyle.value.toMutableUserStyle()
+        mutableUserStyle[userStyleSetting] = userStyleOption
+        // editorSession.userStyle.value = mutableUserStyle.toUserStyle()
+
+        editorSession.userStyle.update {
+             mutableUserStyle.toUserStyle()
+        }
+
+        // editorSession.userStyle.compareAndSet(editorSession.userStyle.value.toMutableUserStyle().toUserStyle(), mutableUserStyle.toUserStyle())
+    }
 
 }
