@@ -192,9 +192,9 @@ fun WatchFaceConfigContent(
             /* Workaround to issue: https://issuetracker.google.com/issues/241545939
              * Fixed in wear compose-material 1.0.1
              */
-            item {
-                Spacer(modifier = Modifier.height(0.dp))
-            }
+//            item {
+//                Spacer(modifier = Modifier.height(0.dp))
+//            }
         }
     }
 }

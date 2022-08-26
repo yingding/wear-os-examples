@@ -15,9 +15,9 @@ buildscript {
 
         // compose
         activity_compose_version = "1.5.1"
-        compose_version = "1.2.0"
+        compose_version = "1.2.1"
         compose_compiler_version = "1.3.0"
-        wear_compose_version = "1.0.0"
+        wear_compose_version = "1.0.1"
 
         // use a different application id for different watch faces
         applicationId = "com.example.watchfaceconfigexample"
