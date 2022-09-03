@@ -68,6 +68,13 @@ class WatchFaceConfigActivity : ComponentActivity() {
      */
     private lateinit var stateHolder: WatchFaceConfigStateHolder
 
+//    private val stateHolder: WatchFaceConfigStateHolder by lazy {
+//        WatchFaceConfigStateHolder(
+//            lifecycleScope,
+//            this@WatchFaceConfigActivity
+//        )
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

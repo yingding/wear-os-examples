@@ -52,7 +52,7 @@ class AnalogWatchCanvasRenderer (
     currentUserStyleRepository: CurrentUserStyleRepository,
     canvasType: Int,
     clearWithBackgroundTintBeforeRenderingHighlightLayer: Boolean // HighlightLayer is used by editor to show the parts affected for configuration
-) : Renderer.CanvasRenderer2<Renderer.SharedAssets>(
+) : Renderer.CanvasRenderer2<AnalogWatchCanvasRenderer.AnalogSharedAssets>(
     surfaceHolder,
     currentUserStyleRepository,
     watchState,
@@ -60,6 +60,11 @@ class AnalogWatchCanvasRenderer (
     interactiveDrawModeUpdateDelayMillis = FRAME_PERIOD_MS_DEFAULT,
     clearWithBackgroundTintBeforeRenderingHighlightLayer
 ) {
+    class AnalogSharedAssets : SharedAssets {
+        override fun onDestroy() {
+        }
+    }
+
     private val scope: CoroutineScope =
         CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -108,11 +113,15 @@ class AnalogWatchCanvasRenderer (
     // valid dimensions from the system.
     private var currentWatchFaceSize = Rect(0, 0, 0, 0)
 
-    override suspend fun createSharedAssets(): SharedAssets {
+    override suspend fun createSharedAssets(): AnalogSharedAssets {
+        return AnalogSharedAssets()
+    }
+
+/*    override suspend fun createSharedAssets(): SharedAssets {
         return object: SharedAssets {
             override fun onDestroy() = Unit
         }
-    }
+    }*/
 
     init {
         scope.launch {
@@ -213,7 +222,7 @@ class AnalogWatchCanvasRenderer (
         canvas: Canvas,
         bounds: Rect,
         zonedDateTime: ZonedDateTime,
-        sharedAssets: SharedAssets
+        sharedAssets: AnalogSharedAssets
     ) {
         // draw Background Color
         val backgroundColor = if (renderParameters.drawMode == DrawMode.AMBIENT) {
@@ -384,7 +393,7 @@ class AnalogWatchCanvasRenderer (
         canvas: Canvas,
         bounds: Rect,
         zonedDateTime: ZonedDateTime,
-        sharedAssets: SharedAssets
+        sharedAssets: AnalogSharedAssets
     ) {
         // draw complication background
         canvas.drawColor(renderParameters.highlightLayer!!.backgroundTint)

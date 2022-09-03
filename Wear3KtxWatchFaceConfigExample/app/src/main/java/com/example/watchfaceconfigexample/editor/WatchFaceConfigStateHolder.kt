@@ -51,7 +51,7 @@ class WatchFaceConfigStateHolder (
     private val scope: CoroutineScope,
     private val activity: ComponentActivity
 ) {
-    lateinit var editorSession: EditorSession
+    private lateinit var editorSession: EditorSession
 
     // Keys from Watch Face Data Structure
     private lateinit var colorStyleKey: UserStyleSetting.ListUserStyleSetting
@@ -228,11 +228,13 @@ class WatchFaceConfigStateHolder (
         //       MutableStateFlow.compareAndSet won't properly update the user style.
         val mutableUserStyle = editorSession.userStyle.value.toMutableUserStyle()
         mutableUserStyle[userStyleSetting] = userStyleOption
+        editorSession.userStyle.value = mutableUserStyle.toUserStyle()
+
         // editorSession.userStyle.value = mutableUserStyle.toUserStyle()
 
-        editorSession.userStyle.update {
-             mutableUserStyle.toUserStyle()
-        }
+//        editorSession.userStyle.update {
+//             mutableUserStyle.toUserStyle()
+//        }
 
         // editorSession.userStyle.compareAndSet(editorSession.userStyle.value.toMutableUserStyle().toUserStyle(), mutableUserStyle.toUserStyle())
     }
