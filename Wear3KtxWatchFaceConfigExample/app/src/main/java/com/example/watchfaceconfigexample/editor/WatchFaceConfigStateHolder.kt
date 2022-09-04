@@ -87,7 +87,36 @@ class WatchFaceConfigStateHolder (
         )
     }
 
-    val uiState: StateFlow<EditWatchFaceUiState> = _uiState
+    // val uiState: StateFlow<EditWatchFaceUiState> = _uiState
+
+    val uiState: StateFlow<EditWatchFaceUiState> =
+        flow<EditWatchFaceUiState> {
+            Log.v(TAG, "create editor session")
+            editorSession = EditorSession.createOnWatchEditorSession(
+                activity = activity
+            )
+
+            extractsUserStyles(editorSession.userStyleSchema)
+
+            // TODO: need to get more info about flow
+            Log.v(TAG, "uiState emitAll...")
+            emitAll(
+                combine(
+                    editorSession.userStyle,
+                    editorSession.complicationsPreviewData
+                ) { userStyle, complicationsPreviewData ->
+                    yield()
+                    EditWatchFaceUiState.Success(
+                        createWatchFacePreview(userStyle, complicationsPreviewData)
+                    )
+                }
+            )
+        }.stateIn(
+            scope = scope + Dispatchers.Main.immediate,
+            started = SharingStarted.Eagerly,
+            initialValue = EditWatchFaceUiState.Loading("Initializing")
+        )
+
 
     /**
      * this method extract the UserStyleSetting to the local class variable from UserStyleSchema

@@ -4,24 +4,17 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
@@ -30,10 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.PositionIndicator
@@ -42,7 +33,6 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.rememberScalingLazyListState
@@ -50,7 +40,6 @@ import com.example.watchfaceconfigexample.R
 import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
 import com.example.watchfaceconfigexample.theme.WearAppTheme
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * Allows user to edit certain parts of the watch face (color style, ticks displayed, minute arm
@@ -146,21 +135,26 @@ fun WatchfaceConfigApp(
     // userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
     onStyleClick: () -> Unit,
 ) {
-    val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
+    val editWatchFaceUiState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState(Dispatchers.Main.immediate)
 
     WearAppTheme {
         // show the first element with autoCenter up of 30
         val stateInit by remember { mutableStateOf(StateInit(0, 30)) }
-        val state: ScalingLazyListState = rememberScalingLazyListState(stateInit.index, stateInit.offSet)
+        val state: ScalingLazyListState =
+            rememberScalingLazyListState(stateInit.index, stateInit.offSet)
 
-        if (editWatchFaceUniState is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success) {
+        Log.v("WatchfaceConfigApp", "editWatchFaceUiState changed...")
+
+        if (editWatchFaceUiState is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success) {
+            Log.v("WatchfaceConfigApp", editWatchFaceUiState.toString())
             WatchFaceConfigContent(
                 stateInit = stateInit,
                 state = state,
-                userStylesAndPreview = (editWatchFaceUniState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
+                userStylesAndPreview = (editWatchFaceUiState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
                 onStyleClick = onStyleClick
             )
         }
+
 //        userStylesAndPreview?.let {
 //            WatchFaceConfigContent(
 //                stateInit = stateInit,
@@ -169,8 +163,10 @@ fun WatchfaceConfigApp(
 //                onStyleClick = onStyleClick
 //            )
 //        }
+
     }
 }
+
 
 data class StateInit(val index: Int, val offSet: Int)
 
@@ -211,6 +207,7 @@ fun WatchFaceConfigContent(
 
 @Composable
 fun WatchfaceImage(bitmap: Bitmap) {
+    Log.v("WatchfaceImage", "updated...")
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Image(
             bitmap = bitmap.asImageBitmap(),
