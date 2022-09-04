@@ -58,8 +58,9 @@ class WatchFaceConfigStateHolder (
     private lateinit var drawPipsKey: UserStyleSetting.BooleanUserStyleSetting
     private lateinit var minuteHandLengthKey: UserStyleSetting.DoubleRangeUserStyleSetting
 
-    val uiState: StateFlow<EditWatchFaceUiState> =
+    private val _uiState: StateFlow<EditWatchFaceUiState> by lazy {
         flow<EditWatchFaceUiState> {
+            Log.v(TAG, "create editor session")
             editorSession = EditorSession.createOnWatchEditorSession(
                 activity = activity
             )
@@ -67,12 +68,12 @@ class WatchFaceConfigStateHolder (
             extractsUserStyles(editorSession.userStyleSchema)
 
             // TODO: need to get more info about flow
+            Log.v(TAG, "uiState emitAll...")
             emitAll(
                 combine(
                     editorSession.userStyle,
                     editorSession.complicationsPreviewData
-                ) {
-                    userStyle, complicationsPreviewData ->
+                ) { userStyle, complicationsPreviewData ->
                     yield()
                     EditWatchFaceUiState.Success(
                         createWatchFacePreview(userStyle, complicationsPreviewData)
@@ -84,6 +85,9 @@ class WatchFaceConfigStateHolder (
             started = SharingStarted.Eagerly,
             initialValue = EditWatchFaceUiState.Loading("Initializing")
         )
+    }
+
+    val uiState: StateFlow<EditWatchFaceUiState> = _uiState
 
     /**
      * this method extract the UserStyleSetting to the local class variable from UserStyleSchema
@@ -207,9 +211,23 @@ class WatchFaceConfigStateHolder (
         }
     }
 
-    fun setDrawPips(enabled: Boolean) = Unit
+    // TODO: revisit
+    fun setDrawPips(enabled: Boolean) {
+        setUserStyleOption(
+            drawPipsKey,
+            UserStyleSetting.BooleanUserStyleSetting.BooleanOption.from(enabled)
+        )
+    }
 
-    fun setMinuteHandArmLength(newLengthRatio: Float) = Unit
+    // TODO: revisit
+    fun setMinuteHandArmLength(newLengthRatio: Float) {
+        val newMinuteHandLengthRatio = newLengthRatio.toDouble() / MULTIPLE_FOR_SLIDER
+
+        setUserStyleOption(
+            minuteHandLengthKey,
+            UserStyleSetting.DoubleRangeUserStyleSetting.DoubleRangeOption(newMinuteHandLengthRatio)
+        )
+    }
 
 
     // Saves User Style Option change back to the back to the EditorSession.

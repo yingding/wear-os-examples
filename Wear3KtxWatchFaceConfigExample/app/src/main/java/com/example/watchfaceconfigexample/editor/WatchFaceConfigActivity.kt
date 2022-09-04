@@ -77,6 +77,7 @@ class WatchFaceConfigActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.v(TAG, "onCreate...")
 
         stateHolder =
             WatchFaceConfigStateHolder(
@@ -87,10 +88,10 @@ class WatchFaceConfigActivity : ComponentActivity() {
         setContent{
             // var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
 
-            val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
+            // val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
 
             WatchfaceConfigApp(
-                editWatchFaceUniState,
+                stateHolder,
                 ::onClickColorStylePickerButton
             )
 
@@ -130,7 +131,7 @@ class WatchFaceConfigActivity : ComponentActivity() {
         val newColorStyle: ColorStyleIdAndResourceIds = colorStyleIdAndResourceIdsList.random()
         Log.d(TAG, "onClickColorStylePickerButton() set ${newColorStyle.id}")
 
-        stateHolder.setColorStyle(newColorStyle.id)
+        this@WatchFaceConfigActivity.stateHolder.setColorStyle(newColorStyle.id)
     }
 
     companion object {
@@ -141,10 +142,12 @@ class WatchFaceConfigActivity : ComponentActivity() {
 
 @Composable
 fun WatchfaceConfigApp(
-    editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState,
+    stateHolder: WatchFaceConfigStateHolder,
     // userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
     onStyleClick: () -> Unit,
 ) {
+    val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
+
     WearAppTheme {
         // show the first element with autoCenter up of 30
         val stateInit by remember { mutableStateOf(StateInit(0, 30)) }
@@ -154,7 +157,7 @@ fun WatchfaceConfigApp(
             WatchFaceConfigContent(
                 stateInit = stateInit,
                 state = state,
-                userStylesAndPreview = editWatchFaceUniState.userStylesAndPreview,
+                userStylesAndPreview = (editWatchFaceUniState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
                 onStyleClick = onStyleClick
             )
         }

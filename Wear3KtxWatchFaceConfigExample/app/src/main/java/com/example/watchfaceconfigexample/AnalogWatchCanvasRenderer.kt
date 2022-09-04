@@ -196,6 +196,7 @@ class AnalogWatchCanvasRenderer (
         // Only updates if something changed.
         if (watchFaceData != newWatchFaceData) {
 
+            Log.v(TAG, "updateWatchFace(): update colors")
             // Recreates the global variable Color and ComplicationDrawable from resource ids.
             watchFaceColors = convertToWatchFaceColorPalette(
                 context,
@@ -203,6 +204,7 @@ class AnalogWatchCanvasRenderer (
                 watchFaceData.ambientColorStyle
             )
 
+            Log.v(TAG, "updateWatchFace(): applyComplications")
             // Applies the user chosen complication color scheme changes. ComplicationDrawables for
             // each of the styles are defined in XML so we need to replace the complication's
             // drawables.
