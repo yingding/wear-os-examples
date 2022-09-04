@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,8 @@ import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListAnchorType
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.ToggleChip
+import androidx.wear.compose.material.ToggleChipDefaults
 import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.rememberScalingLazyListState
@@ -75,39 +78,10 @@ class WatchFaceConfigActivity : ComponentActivity() {
             )
 
         setContent{
-            // var userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview? by remember { mutableStateOf(null)}
-
-            // val editWatchFaceUniState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState()
-
             WatchfaceConfigApp(
                 stateHolder,
                 ::onClickColorStylePickerButton
             )
-
-            // To trigger the side-effect only once during the lifecycle of this composable,
-            // use a constant as a key
-            // or every time when stateHolder changes
-//            LaunchedEffect(editWatchFaceUniState) {
-//                lifecycleScope.launch(Dispatchers.Main.immediate) {
-//                    stateHolder.uiState
-//                        .collect { uiState: WatchFaceConfigStateHolder.EditWatchFaceUiState ->
-//                            when (uiState) {
-//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Loading -> {
-//                                    Log.d(TAG, "StateFlow Loading: ${uiState.message}")
-//                                }
-//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Success -> {
-//                                    Log.d(TAG, "StateFlow Success.")
-//                                    userStylesAndPreview = uiState.userStylesAndPreview
-//                                    // updateWatchFacePreview(uiState.userStylesAndPreview)
-//                                }
-//                                is WatchFaceConfigStateHolder.EditWatchFaceUiState.Error -> {
-//                                    Log.e(TAG, "Flow error: ${uiState.exception}")
-//                                }
-//                            }
-//                        }
-//                }
-//            }
-
         }
     }
 
@@ -154,16 +128,6 @@ fun WatchfaceConfigApp(
                 onStyleClick = onStyleClick
             )
         }
-
-//        userStylesAndPreview?.let {
-//            WatchFaceConfigContent(
-//                stateInit = stateInit,
-//                state = state,
-//                userStylesAndPreview = it,
-//                onStyleClick = onStyleClick
-//            )
-//        }
-
     }
 }
 
@@ -195,12 +159,9 @@ fun WatchFaceConfigContent(
             item {
                StyleClip(onClick = onStyleClick)
             }
-            /* Workaround to issue: https://issuetracker.google.com/issues/241545939
-             * Fixed in wear compose-material 1.0.1
-             */
-//            item {
-//                Spacer(modifier = Modifier.height(0.dp))
-//            }
+            item {
+                TicksToggleChip(onCheckedChange = {})
+            }
         }
     }
 }
@@ -241,6 +202,42 @@ fun StyleClip(
             )
         }
     )
+}
+
+@Composable
+fun TicksToggleChip(
+    modifier: Modifier = Modifier,
+    onCheckedChange: ()->Unit
+) {
+    var checked by remember { mutableStateOf(true) }
+    ToggleChip(
+        modifier = modifier,
+        checked = checked,
+//        appIcon = {
+//                  Icon(
+//                      painter = painterResource(R.drawable.color_style_icon),
+//                      contentDescription = stringResource(R.string.activity_config_change_color_style_button_content_description)
+//                  )
+//        },
+        toggleControl = {
+            Icon(
+                imageVector = ToggleChipDefaults.switchIcon(checked = checked),
+                contentDescription = if (checked) "chedked" else "Unchecked"
+            )
+        },
+        onCheckedChange = {
+            checked = it
+            onCheckedChange()
+        },
+        label = {
+            Text(
+                text = "TICKS ENABLED",
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
+        }
+    )
+
 }
 
 

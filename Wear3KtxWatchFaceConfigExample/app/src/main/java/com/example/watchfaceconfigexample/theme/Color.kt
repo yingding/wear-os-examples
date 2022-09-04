@@ -25,12 +25,12 @@ val Teal200 = Color(0xFF03DAC5)
 val Red400 = Color(0xFFCF6679)
 
 val WearAppColorPalette: Colors = Colors(
-    primary = Purple200,
+    primary = Color.Black, // Purple200,
     primaryVariant = Purple700,
     secondary = Teal200,
     secondaryVariant = Teal200,
     error = Red400,
-    onPrimary = Color.Black,
+    onPrimary = Color.White, // Color.Black,
     onSecondary = Color.Black,
     onError = Color.Black,
     background = Color.Black
