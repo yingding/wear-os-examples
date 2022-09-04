@@ -96,6 +96,7 @@ class WatchFaceConfigStateHolder (
                 activity = activity
             )
 
+            // save the editorSession userStyle to local variable
             extractsUserStyles(editorSession.userStyleSchema)
 
             // TODO: need to get more info about flow

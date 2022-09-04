@@ -195,6 +195,8 @@ class AnalogWatchCanvasRenderer (
 
         // Only updates if something changed.
         if (watchFaceData != newWatchFaceData) {
+            // copy the new WatchFaceData to the placeholder
+            watchFaceData = newWatchFaceData
 
             Log.v(TAG, "updateWatchFace(): update colors")
             // Recreates the global variable Color and ComplicationDrawable from resource ids.
