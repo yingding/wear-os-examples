@@ -222,7 +222,7 @@ fun TicksToggleChip(
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.switchIcon(checked = checked),
-                contentDescription = if (checked) "chedked" else "Unchecked"
+                contentDescription = if (checked) "checked" else "Unchecked"
             )
         },
         onCheckedChange = {
