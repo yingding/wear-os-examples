@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+    // https://developer.android.com/studio/build/configure-app-module
+    namespace rootProject.applicationId
     compileSdk rootProject.compileSdk
 
     defaultConfig {
