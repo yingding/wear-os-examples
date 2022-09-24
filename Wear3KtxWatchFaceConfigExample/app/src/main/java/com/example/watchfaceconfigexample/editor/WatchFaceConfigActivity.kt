@@ -42,6 +42,8 @@ import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.watchfaceconfigexample.R
 import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
 import com.example.watchfaceconfigexample.theme.WearAppTheme
+import com.example.watchfaceconfigexample.utils.LEFT_COMPLICATION_ID
+import com.example.watchfaceconfigexample.utils.RIGHT_COMPLICATION_ID
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -101,6 +103,16 @@ class WatchFaceConfigActivity : ComponentActivity() {
     fun onClickTicksEnabledSwitch(enabled: Boolean) {
         Log.d(TAG, "onClickTicksEnabledSwitch() $enabled")
         this@WatchFaceConfigActivity.stateHolder.setDrawPips(enabled)
+    }
+
+    fun onClickLeftComplicationButton() {
+        Log.d(TAG, "onClickLeftComplicationButton() ")
+        this@WatchFaceConfigActivity.stateHolder.setComplication(LEFT_COMPLICATION_ID)
+    }
+
+    fun onClickRightComplicationButton() {
+        Log.d(TAG, "onClickRightComplicationButton() ")
+        this@WatchFaceConfigActivity.stateHolder.setComplication(RIGHT_COMPLICATION_ID)
     }
 
 
