@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -80,7 +81,8 @@ class WatchFaceConfigActivity : ComponentActivity() {
         setContent{
             WatchfaceConfigApp(
                 stateHolder,
-                ::onClickColorStylePickerButton
+                ::onClickColorStylePickerButton,
+                ::onClickTicksEnabledSwitch
             )
         }
     }
@@ -97,6 +99,12 @@ class WatchFaceConfigActivity : ComponentActivity() {
         this@WatchFaceConfigActivity.stateHolder.setColorStyle(newColorStyle.id)
     }
 
+    fun onClickTicksEnabledSwitch(enabled: Boolean) {
+        Log.d(TAG, "onClickTicksEnabledSwitch() $enabled")
+        this@WatchFaceConfigActivity.stateHolder.setDrawPips(enabled)
+    }
+
+
     companion object {
         const val TAG = "WatchFaceConfigActivity"
     }
@@ -108,6 +116,7 @@ fun WatchfaceConfigApp(
     stateHolder: WatchFaceConfigStateHolder,
     // userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
     onStyleClick: () -> Unit,
+    onTickerSwitchEnabled: (Boolean) -> Unit
 ) {
     val editWatchFaceUiState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState(Dispatchers.Main.immediate)
 
@@ -125,7 +134,8 @@ fun WatchfaceConfigApp(
                 stateInit = stateInit,
                 state = state,
                 userStylesAndPreview = (editWatchFaceUiState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
-                onStyleClick = onStyleClick
+                onStyleClick = onStyleClick,
+                onTickerSwitchEnabled = onTickerSwitchEnabled
             )
         }
     }
@@ -140,6 +150,7 @@ fun WatchFaceConfigContent(
     state: ScalingLazyListState,
     userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview,
     onStyleClick: () -> Unit,
+    onTickerSwitchEnabled: (Boolean) -> Unit,
 ) {
     Scaffold (
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
@@ -160,7 +171,9 @@ fun WatchFaceConfigContent(
                StyleClip(onClick = onStyleClick)
             }
             item {
-                TicksToggleChip(onCheckedChange = {})
+                TicksToggleChip(
+                    isCheckedState = userStylesAndPreview.ticksEnabled,
+                    onCheckedChange = onTickerSwitchEnabled)
             }
         }
     }
@@ -207,12 +220,13 @@ fun StyleClip(
 @Composable
 fun TicksToggleChip(
     modifier: Modifier = Modifier,
-    onCheckedChange: ()->Unit
+    isCheckedState: Boolean = true,
+    onCheckedChange: (Boolean)->Unit
 ) {
-    var checked by remember { mutableStateOf(true) }
+    // var checked by remember { mutableStateOf(isCheckedState) }
     ToggleChip(
         modifier = modifier,
-        checked = checked,
+        checked = isCheckedState,
 //        appIcon = {
 //                  Icon(
 //                      painter = painterResource(R.drawable.color_style_icon),
@@ -221,13 +235,13 @@ fun TicksToggleChip(
 //        },
         toggleControl = {
             Icon(
-                imageVector = ToggleChipDefaults.switchIcon(checked = checked),
-                contentDescription = if (checked) "checked" else "Unchecked"
+                imageVector = ToggleChipDefaults.switchIcon(checked = isCheckedState),
+                contentDescription = if (isCheckedState) "checked" else "Unchecked"
             )
         },
         onCheckedChange = {
-            checked = it
-            onCheckedChange()
+            // checked = it
+            onCheckedChange(it)
         },
         label = {
             Text(
