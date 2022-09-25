@@ -7,9 +7,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
@@ -19,28 +17,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import androidx.wear.compose.material.AutoCenteringParams
-import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.PositionIndicator
-import androidx.wear.compose.material.Scaffold
-import androidx.wear.compose.material.ScalingLazyColumn
-import androidx.wear.compose.material.ScalingLazyListAnchorType
-import androidx.wear.compose.material.ScalingLazyListState
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
-import androidx.wear.compose.material.Vignette
-import androidx.wear.compose.material.VignettePosition
-import androidx.wear.compose.material.rememberScalingLazyListState
+import androidx.wear.compose.material.*
 import com.example.watchfaceconfigexample.R
 import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
+import com.example.watchfaceconfigexample.editor.WatchFaceConfigStateHolder.Companion.MINUTE_HAND_LENGTH_MAXIMUM_FOR_SLIDER
+import com.example.watchfaceconfigexample.editor.WatchFaceConfigStateHolder.Companion.MINUTE_HAND_LENGTH_MINIMUM_FOR_SLIDER
 import com.example.watchfaceconfigexample.theme.WearAppTheme
 import com.example.watchfaceconfigexample.utils.LEFT_COMPLICATION_ID
 import com.example.watchfaceconfigexample.utils.RIGHT_COMPLICATION_ID
@@ -83,7 +72,8 @@ class WatchFaceConfigActivity : ComponentActivity() {
             WatchfaceConfigApp(
                 stateHolder,
                 ::onClickColorStylePickerButton,
-                ::onClickTicksEnabledSwitch
+                ::onClickTicksEnabledSwitch,
+                ::onSliderValueChange
             )
         }
     }
@@ -115,6 +105,10 @@ class WatchFaceConfigActivity : ComponentActivity() {
         this@WatchFaceConfigActivity.stateHolder.setComplication(RIGHT_COMPLICATION_ID)
     }
 
+    fun onSliderValueChange(value: Float) {
+        Log.d(TAG, "onSliderValueChange()")
+        this@WatchFaceConfigActivity.stateHolder.setMinuteHandArmLength(value)
+    }
 
     companion object {
         const val TAG = "WatchFaceConfigActivity"
@@ -125,9 +119,9 @@ class WatchFaceConfigActivity : ComponentActivity() {
 @Composable
 fun WatchfaceConfigApp(
     stateHolder: WatchFaceConfigStateHolder,
-    // userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview?,
     onStyleClick: () -> Unit,
-    onTickerSwitchEnabled: (Boolean) -> Unit
+    onTickerSwitchEnabled: (Boolean) -> Unit,
+    onMinuteHandArmLengthChange: (Float) -> Unit,
 ) {
     val editWatchFaceUiState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState(Dispatchers.Main.immediate)
 
@@ -146,7 +140,8 @@ fun WatchfaceConfigApp(
                 state = state,
                 userStylesAndPreview = (editWatchFaceUiState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
                 onStyleClick = onStyleClick,
-                onTickerSwitchEnabled = onTickerSwitchEnabled
+                onTickerSwitchEnabled = onTickerSwitchEnabled,
+                onMinuteHandArmLengthChange = onMinuteHandArmLengthChange
             )
         }
     }
@@ -162,6 +157,7 @@ fun WatchFaceConfigContent(
     userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview,
     onStyleClick: () -> Unit,
     onTickerSwitchEnabled: (Boolean) -> Unit,
+    onMinuteHandArmLengthChange: (Float) -> Unit
 ) {
     Scaffold (
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
@@ -179,12 +175,21 @@ fun WatchFaceConfigContent(
                 WatchfaceImage(userStylesAndPreview.previewImage)
             }
             item {
+                MoreOptionImage()
+            }
+            item {
                StyleClip(onClick = onStyleClick)
             }
             item {
                 TicksToggleChip(
                     isCheckedState = userStylesAndPreview.ticksEnabled,
                     onCheckedChange = onTickerSwitchEnabled)
+            }
+            item {
+                MinuteHandSlider(
+                    fraction = userStylesAndPreview.minuteHandLength,
+                    valueRange = MINUTE_HAND_LENGTH_MINIMUM_FOR_SLIDER..MINUTE_HAND_LENGTH_MAXIMUM_FOR_SLIDER,
+                    onMinuteHandArmLengthChange = onMinuteHandArmLengthChange)
             }
         }
     }
@@ -198,6 +203,47 @@ fun WatchfaceImage(bitmap: Bitmap) {
             bitmap = bitmap.asImageBitmap(),
             contentDescription = stringResource(R.string.activity_config_screenshot_content_description),
             modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
+fun MoreOptionImage() {
+    Image(
+        painter = painterResource(R.drawable.more_options_icon),
+        contentDescription = stringResource(R.string.activity_config_more_options_icon_content_description),
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(Alignment.CenterVertically)
+    )
+}
+
+@Composable
+fun MinuteHandSlider(
+    fraction: Float,
+    valueRange: ClosedFloatingPointRange<Float>,
+    onMinuteHandArmLengthChange: (Float) -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(R.string.activity_config_slider_text_label),
+            style = MaterialTheme.typography.title3,
+            modifier = Modifier.padding(8.dp)
+        )
+        InlineSlider(
+            value = fraction,
+            onValueChange = onMinuteHandArmLengthChange,
+            increaseIcon = {
+                Icon(InlineSliderDefaults.Increase, "Increase")
+            },
+            decreaseIcon = {
+                Icon(InlineSliderDefaults.Decrease, "Decrease")
+            },
+            valueRange = valueRange,
+            steps = 5,
+            segmented = true
         )
     }
 }
@@ -238,12 +284,12 @@ fun TicksToggleChip(
     ToggleChip(
         modifier = modifier,
         checked = isCheckedState,
-//        appIcon = {
-//                  Icon(
-//                      painter = painterResource(R.drawable.color_style_icon),
-//                      contentDescription = stringResource(R.string.activity_config_change_color_style_button_content_description)
-//                  )
-//        },
+        appIcon = {
+                  Icon(
+                      painter = painterResource(R.drawable.watch_ticks),
+                      contentDescription = stringResource(R.string.activity_config_ticks_enabled_switch_content_description)
+                  )
+        },
         toggleControl = {
             Icon(
                 imageVector = ToggleChipDefaults.switchIcon(checked = isCheckedState),
@@ -266,22 +312,21 @@ fun TicksToggleChip(
 }
 
 
-@Composable
-fun HelloWorld() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "Hello World!")
-    }
-}
-
-@Preview(
-    uiMode = Configuration.UI_MODE_TYPE_WATCH,
-    device = Devices.WEAR_OS_SMALL_ROUND,
-    // showBackground = false
-)
-@Composable
-private fun HelloWorldPreview() {
-    WearAppTheme {
-        HelloWorld()
-    }
-}
-
+//@Composable
+//fun HelloWorld() {
+//    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+//        Text(text = "Hello World!")
+//    }
+//}
+//
+//@Preview(
+//    uiMode = Configuration.UI_MODE_TYPE_WATCH,
+//    device = Devices.WEAR_OS_SMALL_ROUND,
+//    // showBackground = false
+//)
+//@Composable
+//private fun HelloWorldPreview() {
+//    WearAppTheme {
+//        HelloWorld()
+//    }
+//}

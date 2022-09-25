@@ -52,6 +52,9 @@
     <!-- Values for WatchFaceConfigActivity -->
     <!-- title -->
     <string name="activity_config_color_style_picker_label">Color Style</string>
+    <string name="activity_config_slider_text_label">Minute Hand Size</string>
     <!-- description -->
     <string name="activity_config_change_color_style_button_content_description">Button to change the color style of the watch face.</string>
+    <string name="activity_config_ticks_enabled_switch_content_description">Displays or hides the outer marks for the watch face.</string>
+    <string name="activity_config_more_options_icon_content_description">Icon to indicate there are more options if you scroll down.</string>
 </resources>
