@@ -17,6 +17,8 @@ import com.example.watchfaceconfigexample.data.watchface.MINUTE_HAND_LENGTH_FRAC
 import com.example.watchfaceconfigexample.data.watchface.MINUTE_HAND_LENGTH_FRACTION_MINIMUM
 import com.example.watchfaceconfigexample.utils.COLOR_STYLE_SETTING
 import com.example.watchfaceconfigexample.utils.DRAW_HOUR_PIPS_STYLE_SETTING
+import com.example.watchfaceconfigexample.utils.LEFT_COMPLICATION_ID
+import com.example.watchfaceconfigexample.utils.RIGHT_COMPLICATION_ID
 import com.example.watchfaceconfigexample.utils.WATCH_HAND_LENGTH_STYLE_SETTING
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +29,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.yield
 
@@ -216,7 +219,22 @@ class WatchFaceConfigStateHolder (
     }
 
     /* TODO: Useful function */
-    fun setComplication(complicationLocation: Int) = Unit
+    fun setComplication(complicationLocation: Int) {
+        val complicationSlotId = when (complicationLocation) {
+            LEFT_COMPLICATION_ID -> {
+                LEFT_COMPLICATION_ID
+            }
+            RIGHT_COMPLICATION_ID -> {
+                RIGHT_COMPLICATION_ID
+            }
+            else -> {
+                return
+            }
+        }
+        scope.launch(Dispatchers.Main.immediate) {
+            editorSession.openComplicationDataSourceChooser(complicationSlotId)
+        }
+    }
 
     // TODO: read through the code
     fun setColorStyle(newColorStyleId: String) {

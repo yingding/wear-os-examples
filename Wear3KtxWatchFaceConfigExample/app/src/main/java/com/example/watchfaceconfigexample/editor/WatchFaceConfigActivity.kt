@@ -7,7 +7,17 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
@@ -16,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
@@ -25,7 +36,25 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import androidx.wear.compose.material.*
+import androidx.wear.compose.material.AutoCenteringParams
+import androidx.wear.compose.material.Button
+import androidx.wear.compose.material.ButtonDefaults
+import androidx.wear.compose.material.Chip
+import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.InlineSlider
+import androidx.wear.compose.material.InlineSliderDefaults
+import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material.PositionIndicator
+import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.ScalingLazyColumn
+import androidx.wear.compose.material.ScalingLazyListAnchorType
+import androidx.wear.compose.material.ScalingLazyListState
+import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.ToggleChip
+import androidx.wear.compose.material.ToggleChipDefaults
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.rememberScalingLazyListState
 import com.example.watchfaceconfigexample.R
 import com.example.watchfaceconfigexample.data.watchface.ColorStyleIdAndResourceIds
 import com.example.watchfaceconfigexample.editor.WatchFaceConfigStateHolder.Companion.MINUTE_HAND_LENGTH_MAXIMUM_FOR_SLIDER
@@ -33,6 +62,7 @@ import com.example.watchfaceconfigexample.editor.WatchFaceConfigStateHolder.Comp
 import com.example.watchfaceconfigexample.theme.WearAppTheme
 import com.example.watchfaceconfigexample.utils.LEFT_COMPLICATION_ID
 import com.example.watchfaceconfigexample.utils.RIGHT_COMPLICATION_ID
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -73,7 +103,9 @@ class WatchFaceConfigActivity : ComponentActivity() {
                 stateHolder,
                 ::onClickColorStylePickerButton,
                 ::onClickTicksEnabledSwitch,
-                ::onSliderValueChange
+                ::onSliderValueChange,
+                ::onClickLeftComplicationButton,
+                ::onClickRightComplicationButton
             )
         }
     }
@@ -122,6 +154,8 @@ fun WatchfaceConfigApp(
     onStyleClick: () -> Unit,
     onTickerSwitchEnabled: (Boolean) -> Unit,
     onMinuteHandArmLengthChange: (Float) -> Unit,
+    onLeftComplicationClick: () -> Unit,
+    onRightComplicationClick: () -> Unit,
 ) {
     val editWatchFaceUiState: WatchFaceConfigStateHolder.EditWatchFaceUiState by stateHolder.uiState.collectAsState(Dispatchers.Main.immediate)
 
@@ -141,7 +175,9 @@ fun WatchfaceConfigApp(
                 userStylesAndPreview = (editWatchFaceUiState as WatchFaceConfigStateHolder.EditWatchFaceUiState.Success).userStylesAndPreview,
                 onStyleClick = onStyleClick,
                 onTickerSwitchEnabled = onTickerSwitchEnabled,
-                onMinuteHandArmLengthChange = onMinuteHandArmLengthChange
+                onMinuteHandArmLengthChange = onMinuteHandArmLengthChange,
+                onLeftComplicationClick = onLeftComplicationClick,
+                onRightComplicationClick = onRightComplicationClick
             )
         }
     }
@@ -157,7 +193,9 @@ fun WatchFaceConfigContent(
     userStylesAndPreview: WatchFaceConfigStateHolder.UserStylesAndPreview,
     onStyleClick: () -> Unit,
     onTickerSwitchEnabled: (Boolean) -> Unit,
-    onMinuteHandArmLengthChange: (Float) -> Unit
+    onMinuteHandArmLengthChange: (Float) -> Unit,
+    onLeftComplicationClick: ()-> Unit,
+    onRightComplicationClick: ()-> Unit,
 ) {
     Scaffold (
         vignette = { Vignette(vignettePosition = VignettePosition.TopAndBottom) },
@@ -172,7 +210,7 @@ fun WatchFaceConfigContent(
             // the autoCentering param must be the same as the sate param, since we have full screen element, default 1, 0 will not work.
         ) {
             item {
-                WatchfaceImage(userStylesAndPreview.previewImage)
+                WatchfaceImage(userStylesAndPreview.previewImage, onLeftComplicationClick, onRightComplicationClick)
             }
             item {
                 MoreOptionImage()
@@ -196,14 +234,41 @@ fun WatchFaceConfigContent(
 }
 
 @Composable
-fun WatchfaceImage(bitmap: Bitmap) {
+fun WatchfaceImage(bitmap: Bitmap, onLeftClick: ()-> Unit, onRightClick: () -> Unit) {
     Log.v("WatchfaceImage", "updated...")
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        // first element fill the background
         Image(
             bitmap = bitmap.asImageBitmap(),
             contentDescription = stringResource(R.string.activity_config_screenshot_content_description),
             modifier = Modifier.fillMaxSize()
         )
+        Button(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .width(IntrinsicSize.Max).padding(start = 26.dp),
+            // https://effectiveandroid.substack.com/p/custom-layouts-measuring-policies
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent.copy()),
+            onClick = {
+                Log.v("watchfaceImage", "complication clicked")
+                onLeftClick()
+            }
+        ) {
+            // Icon(Icons.Filled.Add,"")
+        }
+        Button(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .width(IntrinsicSize.Max).padding(end = 26.dp),
+            // https://effectiveandroid.substack.com/p/custom-layouts-measuring-policies
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent.copy()),
+            onClick = {
+                Log.v("watchfaceImage", "complication clicked")
+                onRightClick()
+            }
+        ) {
+            // Icon(Icons.Filled.Add,"")
+        }
     }
 }
 
