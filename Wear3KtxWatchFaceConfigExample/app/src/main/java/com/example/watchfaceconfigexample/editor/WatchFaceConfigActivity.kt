@@ -7,10 +7,12 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -233,6 +235,10 @@ fun WatchFaceConfigContent(
     }
 }
 
+/**
+ * Use custom-layout to measure the child https://effectiveandroid.substack.com/p/custom-layouts-measuring-policies
+ * or using Modifier.fillMaxWidth(0.25f) to fill the 1/4 size
+ */
 @Composable
 fun WatchfaceImage(bitmap: Bitmap, onLeftClick: ()-> Unit, onRightClick: () -> Unit) {
     Log.v("WatchfaceImage", "updated...")
@@ -243,7 +249,35 @@ fun WatchfaceImage(bitmap: Bitmap, onLeftClick: ()-> Unit, onRightClick: () -> U
             contentDescription = stringResource(R.string.activity_config_screenshot_content_description),
             modifier = Modifier.fillMaxSize()
         )
-        Button(
+        Row(modifier = Modifier
+            .align(Alignment.Center) // position in the parent box
+            .fillMaxWidth(),
+            // .background(Color.Yellow),
+            horizontalArrangement = Arrangement.SpaceEvenly // for the child element
+        ){
+            Button(
+                modifier = Modifier.width(IntrinsicSize.Max),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent.copy()),
+                onClick = {
+                    Log.v("watchfaceImage", "complication clicked")
+                    onLeftClick()
+                }
+            ) {
+                // Icon(Icons.Filled.Add,"")
+            }
+            Button(
+                modifier = Modifier.width(IntrinsicSize.Max),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent.copy()),
+                onClick = {
+                    Log.v("watchfaceImage", "complication clicked")
+                    onRightClick()
+                }
+            ) {
+                // Icon(Icons.Filled.Add,"")
+            }
+
+        }
+/*        Button(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .width(IntrinsicSize.Max).padding(start = 26.dp),
@@ -268,7 +302,7 @@ fun WatchfaceImage(bitmap: Bitmap, onLeftClick: ()-> Unit, onRightClick: () -> U
             }
         ) {
             // Icon(Icons.Filled.Add,"")
-        }
+        }*/
     }
 }
 
