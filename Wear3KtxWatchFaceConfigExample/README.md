@@ -6,7 +6,8 @@ This project codes are updated and modified by the author of this project.
 
 ## Changelog
 * Updated `Renderer.CanvasRenderer2` and deprecated `Renderer.CanvasRenderer`
-* Updated `Compose-Wear` lib to Version `1.0.0-rc02`
+* Updated `Compose-Wear` lib to Version `1.0.2`
+* Refactor `WatchFaceConfigActivity` with `wear compose` lib
 * Added comments to enforce better understanding of source codes
 
 ## Steps to build in Android Studio
