@@ -1,4 +1,4 @@
-package com.example.wearpagerexample.theme
+package com.example.wearnavexample.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily

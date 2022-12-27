@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace rootProject.namespace
     compileSdk rootProject.compileSdk
     buildToolsVersion rootProject.buildToolsVersion
 
@@ -51,16 +52,15 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-
 }
 
 dependencies {
     // General Compose dependencies
     implementation "androidx.activity:activity-compose:$activity_compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    implementation "androidx.compose.foundation:foundation:$compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version" // accompanist need androidx.compose.material
+    implementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    implementation "androidx.compose.foundation:foundation:$compose_foundation_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_foundation_version"
+    implementation "androidx.compose.material:material:$compose_foundation_version" // accompanist need androidx.compose.material
     // compiler
     implementation "androidx.compose.compiler:compiler:$compose_compiler_version"
     // Compose for Wear OS Dependencies
@@ -81,7 +81,7 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
 
 }

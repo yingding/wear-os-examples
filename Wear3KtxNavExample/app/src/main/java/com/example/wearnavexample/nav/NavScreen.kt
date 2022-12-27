@@ -1,4 +1,4 @@
-package com.example.wearpagerexample.nav
+package com.example.wearnavexample.nav
 
 sealed class NavScreen (val route: String) {
     object Menu: NavScreen("menu")

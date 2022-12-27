@@ -1,4 +1,4 @@
-package com.example.wearpagerexample
+package com.example.wearnavexample
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -19,17 +19,15 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import com.example.wearpagerexample.activity.ScrollableActivityScreen
-import com.example.wearpagerexample.nav.NavMenuScreen
-import com.example.wearpagerexample.nav.NavScreen
-
-import com.example.wearpagerexample.theme.WearAppTheme
+import com.example.wearnavexample.activity.ScrollableActivityScreen
+import com.example.wearnavexample.nav.NavMenuScreen
+import com.example.wearnavexample.nav.NavScreen
+import com.example.wearnavexample.theme.WearAppTheme
 import com.google.android.horologist.compose.navscaffold.WearNavScaffold
-import com.google.android.horologist.compose.navscaffold.scalingLazyColumnComposable
-import com.google.android.horologist.compose.navscaffold.wearNavComposable
+import com.google.android.horologist.compose.navscaffold.scrollable
 
 /*
  * MainActivity inherits AppCompatActivity which is a ComponentActivity
@@ -65,13 +63,14 @@ fun WearNavApp(navController: NavHostController) {
         navController = navController,
         // state = navState
     ) {
-        scalingLazyColumnComposable(
+        // scalingLazyColumnComposable(
+        scrollable(
             route = NavScreen.Menu.route,
             /* current bug confict between scrollStateBuilder and the NavMenuScreen with
              * autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 30)
              * Time text is not shown https://github.com/google/horologist/issues/245
              */
-            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -30) }
+            // scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -30) }
         ) {
             NavMenuScreen(
                 navigateToRoute = { route -> navController.navigate(route)},
@@ -79,9 +78,10 @@ fun WearNavApp(navController: NavHostController) {
                 // focusRequester = remember { FocusRequester() } // todo: put it into a viewModel
                 )
         }
-        scalingLazyColumnComposable(
+        // scalingLazyColumnComposable(
+        scrollable(
             route = NavScreen.Activity.route,
-            scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -50) }
+            // scrollStateBuilder = { ScalingLazyListState(initialCenterItemIndex = 2, initialCenterItemScrollOffset = -50) }
         ) {
             ScrollableActivityScreen(
                 scrollState = it.scrollableState,
@@ -92,12 +92,13 @@ fun WearNavApp(navController: NavHostController) {
 //                Text(text = "Activity")
 //            }
 //        }
-        wearNavComposable(NavScreen.Graph.route) { _,_ ->
+        composable(NavScreen.Graph.route) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Graph")
             }
         }
-        wearNavComposable(NavScreen.Setting.route) { _,_ ->
+        // replace wearNavComposable with composable
+        composable(NavScreen.Setting.route) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(text = "Setting")
             }

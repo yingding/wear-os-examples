@@ -1,26 +1,30 @@
-package com.example.wearpagerexample.activity
+package com.example.wearnavexample.activity
 
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.wear.compose.material.AutoCenteringParams
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.ScalingLazyListState
 import androidx.wear.compose.material.Text
-import com.example.wearpagerexample.nav.SampleChip
-import com.google.android.horologist.compose.navscaffold.scrollableColumn
+import com.example.wearnavexample.nav.SampleChip
+import com.google.android.horologist.compose.focus.rememberActiveFocusRequester
+import com.google.android.horologist.compose.rotaryinput.rotaryWithFling
 
 @Composable
 fun ScrollableActivityScreen(
     modifier: Modifier = Modifier,
     scrollState: ScalingLazyListState,
-    focusRequester: FocusRequester = remember { FocusRequester() }
+    // focusRequester: FocusRequester = remember { FocusRequester() }
 ) {
+    val focusRequester = rememberActiveFocusRequester()
+
     ScalingLazyColumn(
-        modifier = modifier.scrollableColumn(focusRequester, scrollState),
+        modifier = modifier
+            .fillMaxSize()
+            .rotaryWithFling(focusRequester, scrollState),
+                // .scrollableColumn(focusRequester, scrollState),
         state = scrollState,
         horizontalAlignment = Alignment.CenterHorizontally,
         autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 10),
