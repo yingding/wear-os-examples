@@ -77,7 +77,8 @@ fun ButtonExample(
     ) {
         // Button
         Button(
-            modifier = Modifier.size(ButtonDefaults.LargeButtonSize),
+            modifier = Modifier
+                .size(ButtonDefaults.LargeButtonSize),
             onClick = { /**/ },
         ) {
             Icon(
