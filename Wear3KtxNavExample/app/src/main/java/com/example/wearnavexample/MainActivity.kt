@@ -66,7 +66,7 @@ fun WearNavApp(navController: NavHostController) {
         // scalingLazyColumnComposable(
         scrollable(
             route = NavScreen.Menu.route,
-            /* current bug confict between scrollStateBuilder and the NavMenuScreen with
+            /* current bug conflict between scrollStateBuilder and the NavMenuScreen with
              * autoCentering = AutoCenteringParams(itemIndex = 1, itemOffset = 30)
              * Time text is not shown https://github.com/google/horologist/issues/245
              */
