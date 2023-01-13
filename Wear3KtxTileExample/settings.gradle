@@ -1,0 +1,2 @@
+include ':start', ':finished', ':app'
+rootProject.name = "Wear3KtxTileExample"
