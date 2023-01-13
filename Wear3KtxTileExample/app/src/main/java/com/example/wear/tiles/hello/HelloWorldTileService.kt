@@ -15,17 +15,19 @@
  */
 package com.example.wear.tiles.hello
 
+import androidx.wear.tiles.DimensionBuilders
 import androidx.wear.tiles.LayoutElementBuilders
 import androidx.wear.tiles.LayoutElementBuilders.LayoutElement
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TimelineBuilders
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.example.wear.tiles.R
+import com.google.android.horologist.tiles.SuspendingTileService
 
 private const val RESOURCES_VERSION = "0"
 
-class HelloWorldTileService : CoroutinesTileService() {
+class HelloWorldTileService : SuspendingTileService() {
 
     override suspend fun resourcesRequest(
         requestParams: RequestBuilders.ResourcesRequest
@@ -35,28 +37,46 @@ class HelloWorldTileService : CoroutinesTileService() {
             .build()
     }
 
+    // create a Tile obj
     override suspend fun tileRequest(
         requestParams: RequestBuilders.TileRequest
     ): TileBuilders.Tile {
+        // Define the type of timeline
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
             .addTimelineEntry(
+                // add timeline entry object
                 TimelineBuilders.TimelineEntry.Builder()
                     .setLayout(
+                        // set the layout of the current timeline entry container
                         LayoutElementBuilders.Layout.Builder()
-                            .setRoot(tileLayout())
-                            .build()
+                            .setRoot(
+                                // add tileLayout to be the root of timeline entry container
+                                tileLayout()
+                            ).build()
                     )
                     .build()
             )
             .build()
 
         return TileBuilders.Tile.Builder()
+            // set the version
             .setResourcesVersion(RESOURCES_VERSION)
+            // set the timeline for the tile
             .setTimeline(singleTileTimeline)
             .build()
     }
 
     private fun tileLayout(): LayoutElement {
-        TODO()
+        val text = getString(R.string.hello_tile_body)
+        return LayoutElementBuilders.Box.Builder() // Box
+            .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)
+            .setWidth(DimensionBuilders.expand()) // fill the parent
+            .setHeight(DimensionBuilders.expand()) // fill the parent
+            .addContent(
+                LayoutElementBuilders.Text.Builder() // text
+                    .setText(text)
+                    .build()
+            )
+            .build()
     }
 }

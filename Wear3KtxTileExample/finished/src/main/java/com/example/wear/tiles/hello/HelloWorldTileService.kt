@@ -23,11 +23,11 @@ import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders
 import androidx.wear.tiles.TimelineBuilders
 import com.example.wear.tiles.R
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.google.android.horologist.tiles.SuspendingTileService
 
 private const val RESOURCES_VERSION = "0"
 
-class HelloWorldTileService : CoroutinesTileService() {
+class HelloWorldTileService : SuspendingTileService() {
 
     override suspend fun resourcesRequest(
         requestParams: RequestBuilders.ResourcesRequest

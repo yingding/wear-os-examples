@@ -5,13 +5,20 @@ this project is a folk from the [`Wear Tiles Codelab`](https://developer.android
 This project codes are updated and modified by the author of this project.
 
 ## Changelog
+* use horologist `0.2.7` changed to `com.google.android.horologist.tiles.SuspendingTileService`
+* Added comments to enforce better understanding of source codes
+* update to compose 1.3.2
+
+## Workspace
 * app module of authors self learning
 * start module of the start code
 * finish module of the solution code
-* Added comments to enforce better understanding of source codes
 
 ## Learning Progress
 * https://developer.android.com/codelabs/wear-tiles#1
+
+## TileMaterial
+https://android-developers.googleblog.com/2022/08/wear-os-tiles-material-library-build-tiles-fast.html
 
 Wear OS Tile API Code Lab Repository
 ======================================

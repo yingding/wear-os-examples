@@ -22,7 +22,7 @@ import androidx.wear.tiles.ResourceBuilders.Resources
 import androidx.wear.tiles.TileBuilders.Tile
 import coil.imageLoader
 import com.example.wear.tiles.messaging.MessagingRepo
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.google.android.horologist.tiles.SuspendingTileService
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class MessagingTileService : CoroutinesTileService() {
+class MessagingTileService : SuspendingTileService() {
 
     private lateinit var repo: MessagingRepo
     private lateinit var renderer: MessagingTileRenderer
