@@ -55,7 +55,14 @@ class MessagingTileRenderer(context: Context) :
             deviceParameters = deviceParameters,
             state = state,
             searchButtonClickable = launchActivityClickable("search_button", openSearch()),
-            newConversationButtonClickable = launchActivityClickable("new_conversation", openNewConversation())
+            contactClickableFactory = { contact ->
+                launchActivityClickable(
+                    clickableId = contact.id.toString(),
+                    androidActivity = openConversation(contact)
+                )
+            },
+            newButtonClickable = launchActivityClickable("new_button", openNewConversation())
+
         )
     }
 
@@ -91,13 +98,14 @@ private fun messagingTileLayout(
     deviceParameters: DeviceParametersBuilders.DeviceParameters,
     state: MessagingTileState,
     searchButtonClickable: ModifiersBuilders.Clickable,
-    newConversationButtonClickable: ModifiersBuilders.Clickable
+    contactClickableFactory: (Contact) -> ModifiersBuilders.Clickable,
+    newButtonClickable: ModifiersBuilders.Clickable
 ) = PrimaryLayout.Builder(deviceParameters)
     .setPrimaryChipContent(
         CompactChip.Builder(
         /* context = */ context,
         /* text = */ context.getString(R.string.tile_messaging_create_new),
-        /* clickable = */ newConversationButtonClickable, // emptyClickable,
+        /* clickable = */ newButtonClickable, // emptyClickable,
         /* deviceParameters = */ deviceParameters
         )
             .setChipColors(ChipColors.primaryChipColors(MessagingTileTheme.colors))
@@ -113,7 +121,7 @@ private fun messagingTileLayout(
                         contactLayout(
                             context = context,
                             contact = contact,
-                            clickable = launchActivityClickable("open_${contact.name}", openConversation(contact)) //emptyClickable
+                            clickable = contactClickableFactory(contact) //emptyClickable
                         )
                     )
                 }
