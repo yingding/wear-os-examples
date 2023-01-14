@@ -45,6 +45,7 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 class MessagingTileRenderer(context: Context) :
     SingleTileLayoutRenderer<MessagingTileState, Map<Contact, Bitmap>>(context) {
 
+    // provide the layout by the Renderer to the TileService
     override fun renderTile(
         state: MessagingTileState,
         deviceParameters: DeviceParametersBuilders.DeviceParameters
@@ -52,10 +53,13 @@ class MessagingTileRenderer(context: Context) :
         return messagingTileLayout(
             context = context,
             deviceParameters = deviceParameters,
-            state = state
+            state = state,
+            searchButtonClickable = launchActivityClickable("search_button", openSearch()),
+            newConversationButtonClickable = launchActivityClickable("new_conversation", openNewConversation())
         )
     }
 
+    // provide the image resources by the Renderer to the TileService
     override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
         resourceState: Map<Contact, Bitmap>,
         deviceParameters: DeviceParametersBuilders.DeviceParameters,
@@ -71,22 +75,9 @@ class MessagingTileRenderer(context: Context) :
         }
     }
 
-
-
-//    override suspend fun resourcesRequest(requestParams: RequestBuilders.ResourcesRequest): ResourceBuilders.Resources {
-//        val avatars = imageLoader.fetchAvatarsFromNetwork(
-//            context = this@MessagingTileService,
-//            requestParams = requestParams,
-//            tileState = latestTileState()
-//        )
-//        return renderer.produceRequestedResources(avatars, requestParams)
-//    }
-
     companion object {
         internal const val ID_IC_SEARCH = "ic_search"
     }
-
-
 }
 
 
@@ -98,13 +89,15 @@ class MessagingTileRenderer(context: Context) :
 private fun messagingTileLayout(
     context: Context,
     deviceParameters: DeviceParametersBuilders.DeviceParameters,
-    state: MessagingTileState
+    state: MessagingTileState,
+    searchButtonClickable: ModifiersBuilders.Clickable,
+    newConversationButtonClickable: ModifiersBuilders.Clickable
 ) = PrimaryLayout.Builder(deviceParameters)
     .setPrimaryChipContent(
         CompactChip.Builder(
         /* context = */ context,
         /* text = */ context.getString(R.string.tile_messaging_create_new),
-        /* clickable = */ emptyClickable,
+        /* clickable = */ newConversationButtonClickable, // emptyClickable,
         /* deviceParameters = */ deviceParameters
         )
             .setChipColors(ChipColors.primaryChipColors(MessagingTileTheme.colors))
@@ -120,12 +113,12 @@ private fun messagingTileLayout(
                         contactLayout(
                             context = context,
                             contact = contact,
-                            clickable = emptyClickable
+                            clickable = launchActivityClickable("open_${contact.name}", openConversation(contact)) //emptyClickable
                         )
                     )
                 }
             }
-            .addButtonContent(searchLayout(context, emptyClickable))
+            .addButtonContent(searchLayout(context, searchButtonClickable)) // pass the searchButtonClickable
             .build()
 //        Text.Builder(context, context.getString(R.string.hello_tile_body))
 //            .setTypography(Typography.TYPOGRAPHY_BODY1)
