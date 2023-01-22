@@ -45,6 +45,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.example.android.wearable.runtimepermissions'
 }
 
 dependencies {

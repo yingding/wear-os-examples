@@ -33,9 +33,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lintOptions {
-        warningsAsErrors true
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,6 +46,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+    lint {
+        warningsAsErrors true
+    }
+    namespace 'com.example.android.wearable.runtimepermissions'
 }
 
 dependencies {
