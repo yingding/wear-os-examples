@@ -45,7 +45,7 @@ get the modulo, do not use the mod function which is deprecated
 
 ## Minimum Libs to create a watchface in AS Studio 4.x Kotlin
 The following libs are the minimum lib you might need to make a kotlin watchface in wear os 3 without WatchFace configuration
-```kotlin
+```groovy
     def ktx_core_version = '1.8.0'
     def material_version = "1.6.1"
     def wear_watchface_version = "1.1.0"
